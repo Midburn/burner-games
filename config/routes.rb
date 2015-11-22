@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   namespace :api, format: false do
     namespace :v1 do
-      resources :games, defaults: { format: 'json' }
+      # games
+      get  "/games/:token", to: "games#get"
+      post "/games/new", to: "games#create"
     end
 
     match '*path', to: redirect("/api/v1/%{path}"), via: :all

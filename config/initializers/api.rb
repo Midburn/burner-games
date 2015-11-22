@@ -6,7 +6,8 @@ module Api
     E_INVALID_JSON = 1
     E_INVALID_SESSION = 2
     E_ACCESS_DENIED = 3
-    E_INTERNAL = 4
+    E_RESOURCE_NOT_FOUND = 4
+    E_INTERNAL = 5
 
     VERSION = "0.1.0"
 
