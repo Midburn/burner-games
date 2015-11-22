@@ -1,0 +1,6 @@
+example_id                                               | status  | run_time              |
+-------------------------------------------------------- | ------- | --------------------- |
+./spec/controllers/api/v1/games_api_spec.rb[1:1:1:1:1:1] | failed  | 3 minutes 1.6 seconds |
+./spec/controllers/api/v1/games_api_spec.rb[1:1:2:1]     | passed  | 0.0531 seconds        |
+./spec/models/game_spec.rb[1:1]                          | pending | 0.00003 seconds       |
+./spec/models/session_spec.rb[1:1]                       | pending | 0.00002 seconds       |
