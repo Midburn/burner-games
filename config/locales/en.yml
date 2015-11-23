@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  admin:
+    actions:
+      add_new_question:
+        menu: 'New Question'
+        title: 'Add New Question...'
+        breadcrumb: 'New Question'

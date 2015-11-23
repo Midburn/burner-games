@@ -6,8 +6,8 @@ class Question < ActiveRecord::Base
                     leaving_no_trace: 8, participation: 9, immediacy: 10 }
 
   # Associations
-  has_many :user_answers
-  has_many :answers, through: :user_answers
+  has_many :user_answers, dependent: :destroy
+  has_many :answers, through: :user_answers, dependent: :destroy
   has_and_belongs_to_many :games, through: :games_questions
 
   # Validations
@@ -21,6 +21,11 @@ class Question < ActiveRecord::Base
 
   def falses
     user_answers.where(correct: false)
+  end
+
+  def mark_correct_answer(given_answer)
+    raise "Can not mark answer as correct, as it's not assosiated with this question" if answers.exclude?(given_answer)
+    user_answers.find_by_answer_id(given_answer.id).update(correct: true)
   end
 
   def name

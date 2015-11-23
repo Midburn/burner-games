@@ -22,13 +22,16 @@ RailsAdmin.config do |config|
     new
     export
     bulk_delete
+    
+    # member actions
     show
     edit
     delete
     show_in_app
-
-    ## With an audit adapter, you can add:
-    # history_index
-    # history_show
   end
+
+  # Exclude Rails though models. They should never be edited by a user.
+  # config.excluded_models << GamesQuestions
+  config.excluded_models << UserAnswer
+
 end
