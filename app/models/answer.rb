@@ -6,6 +6,8 @@ class Answer < ActiveRecord::Base
   belongs_to :question
 
   # Validations
+  validates :answer_type, presence: true
   validates :body, presence: true
-  validates :body, url: true, if: -> { answer_type != :text }
+  validates :body, url: true, if: -> { answer_type != "text" }
+
 end

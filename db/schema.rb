@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122031443) do
+ActiveRecord::Schema.define(version: 20151122164027) do
 
   create_table "answers", force: true do |t|
     t.integer  "answer_type", default: 0, null: false
@@ -25,7 +25,19 @@ ActiveRecord::Schema.define(version: 20151122031443) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id",    null: false
   end
+
+  create_table "games_questions", id: false, force: true do |t|
+    t.integer  "game_id"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "games_questions", ["game_id", "question_id"], name: "index_games_questions_on_game_id_and_question_id", unique: true, using: :btree
+  add_index "games_questions", ["game_id"], name: "index_games_questions_on_game_id", using: :btree
+  add_index "games_questions", ["question_id"], name: "index_games_questions_on_question_id", using: :btree
 
   create_table "questions", force: true do |t|
     t.string   "body",                        null: false

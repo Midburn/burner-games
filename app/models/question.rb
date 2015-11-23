@@ -8,6 +8,7 @@ class Question < ActiveRecord::Base
   # Associations
   has_many :user_answers
   has_many :answers, through: :user_answers
+  has_and_belongs_to_many :games, through: :games_questions
 
   # Validations
   validates :body, presence: true
@@ -20,5 +21,16 @@ class Question < ActiveRecord::Base
 
   def falses
     user_answers.where(correct: false)
+  end
+
+  def name
+    case question_type
+    when "text"
+      "Text: #{body}"
+    when "Image"
+      "Image: ##{id}"
+    when "Video"
+      "Video: ##{id}"
+    end
   end
 end
