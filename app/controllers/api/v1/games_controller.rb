@@ -36,7 +36,7 @@ module Api
       end
 
       def ensure_user_id!
-        params.require(:question_id)
+        params.require(:user_id)
       end
 
       def ensure_answer_ids!
