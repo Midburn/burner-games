@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   namespace :api, format: false do
     namespace :v1 do
       # games
-      get  "/games/:token", to: "games#get"
       post "/games/new", to: "games#create"
+      get  "/games/:token", to: "games#get"
+      post "/games/:token/new_question", to: "games#new_question"
     end
 
     match '*path', to: redirect("/api/v1/%{path}"), via: :all

@@ -1,0 +1,1 @@
+json.call(answer, :id, :answer_type, :body)
