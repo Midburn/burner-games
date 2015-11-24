@@ -2,7 +2,7 @@ module Api
   module V1
     class GamesController < BaseApiController
       before_action :ensure_user_id!, only: %i(create)
-      before_action :ensure_game_found!, only: %i(get update new_question answer)
+      before_action :ensure_game_found!, only: %i(get update new_question answer questions)
       before_action :ensure_question_found!, only: %i(answer)
       before_action :ensure_answer_ids!, only: %i(answer)
       before_action :games_params
@@ -20,6 +20,10 @@ module Api
 
       def new_question
         @question = @game.new_question(params[:level] || "easy")
+      end
+
+      def questions
+        @questions = @game.questions
       end
 
       def answer
