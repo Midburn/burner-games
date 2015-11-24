@@ -1,1 +1,1 @@
-json.call(game, :token, :status, :user_id)
+json.call(game, :token, :status, :user_id, :answered_correctly, :questions_count)

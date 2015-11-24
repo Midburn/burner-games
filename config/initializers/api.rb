@@ -7,7 +7,8 @@ module Api
     E_INVALID_SESSION = 2
     E_ACCESS_DENIED = 3
     E_RESOURCE_NOT_FOUND = 4
-    E_INTERNAL = 5
+    E_INVALID_PARAM = 5
+    E_INTERNAL = 6
 
     VERSION = "0.1.0"
 

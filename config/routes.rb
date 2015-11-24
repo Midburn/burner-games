@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post "/games/new", to: "games#create"
       get  "/games/:token", to: "games#get"
       post "/games/:token/new_question", to: "games#new_question"
+      post "/games/:token/answer", to: "games#answer"
     end
 
     match '*path', to: redirect("/api/v1/%{path}"), via: :all

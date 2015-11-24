@@ -31,11 +31,11 @@ class Question < ActiveRecord::Base
   end
 
   def corrects
-    user_answers.where(correct: true)
+    user_answers.where(correct: true).collect { |a| a.answer }
   end
 
   def falses
-    user_answers.where(correct: false)
+    user_answers.where(correct: false).collect { |a| a.answer }
   end
 
   def mark_correct_answer(given_answer)

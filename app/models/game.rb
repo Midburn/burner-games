@@ -24,6 +24,24 @@ class Game < ActiveRecord::Base
     question
   end
 
+  def user_answered(question_id, answer_ids)
+    if user_correct?(question_id, answer_ids)
+      update(answered_correctly: +1)
+      true
+    else
+      false
+    end
+  end
+
+  def questions_count
+    questions.count
+  end
+
+  def user_correct?(question_id, answer_ids)
+    question, answers = Question.find(question_id), Answer.find(answer_ids)
+    question.corrects == answers
+  end
+
   def name
     "Game ##{token}"
   end
