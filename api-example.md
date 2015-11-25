@@ -1,3 +1,44 @@
+# API Examples
+
+## Models
+
+### Game API Model
+```
+{
+  "token": "t0k3n",          # The game's uniqe identifyer
+  "status": null,            # Status of the game: {started, ended, expired}
+  "user_id": 22,             # The midburn profile user id
+  "answered_correctly": 0,   # Questions that were answered correctly during this game
+  "questions_count": 0,      # Questions attached to this game
+  "questions": []            # Questions array, where each object in the array is the question model
+}
+```
+
+### Question API Model
+```
+{
+  "id": 38,                                       # The id of the question
+  "body": "מישהו ממש מעצבן אותך במידברן, אתה:",   # Question's body. For question_type: 'text' 
+                                                      questions, this will include the text of the question.
+                                                      For other types, body is a url for the source
+                                                      The be included while presenting the question.
+  "question_type": "text",                        # 3 question types: {"text", "image", "video"}
+  "level": "easy",                                # Question's level: {"easy", "very_hard"}
+  "category": null,                               # Category of the question, out of 11 categories.
+                                                      See app/model/question.rb for full list
+  "answers": []                                   # Possible answers for the question
+}
+```
+
+### Question API Model
+```
+{                                                                 
+  "id": 149,                    # The id of the answer
+  "answer_type": "text",        # 3 answer types: {"text", "image", "video"}
+  "body": "דוקר אותו עם נוצה"    # Answer body. Simular to question's body.
+}
+```
+
 ## Burner Games API example
 
 ### 1. Start a new game
@@ -16,7 +57,7 @@ curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --heade
 }
 ```
 
-###### Notice :!: game token: `xfu6Zy`
+###### Notice that the game's token is `xfu6Zy`, we will need it for all of our future requests
 
 ### 2. Get List of Questions
 ```bash
@@ -34,9 +75,10 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
     "questions_count": 0,
     "questions": []
   }
-}```
+}
+```
 
-###### Notice game question list is empty.
+###### Notice game questions list is empty.
 
 ### 3. Add Question To Game: "xfu6Zy"
 ```bash
