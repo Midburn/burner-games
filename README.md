@@ -23,7 +23,8 @@ Similarly to questions, answers can be text, images or video answers. There is n
 
 ## Development Guidance (for all levels)
 
-This repo (or application) was developed as part of the Midburn platform, therefor it was designed as an API first.  
+This repo (or application) was developed as part of the Midburn platform, therefor it was designed as an API first.
+> Find a full API documentation / examples on `api-example.md`
 
 `burner-games` is deployed on `https://burner-games.herokuapp.com` for development purposes. If you're less experienced with running Ruby on Rails services & you work on the front-end side, you may use the heroku.com dev environment as your back-end service.
 
@@ -34,7 +35,9 @@ If you're still want to run the service locally, follow the following configs:
 - Environment configuration: See `.env-example` file for local environment configuration
 - Database creation: See `config/database.yml` for additional info.
 - Database initialization: run `bin/rake midburn:seed_data`
-- How to run the test suite: `bin/rspec` **IMPORTANT: Since this project is intended to be developed over a weekend hackaton, tests are currently not supported**
+- How to run the test suite: `bin/rspec`
+> Side note: Since this project is intended to be developed over a weekend hackathon, tests are currently not supported
+
 - Services: `heroku`. Please contact `@elad_g` for credentials.
 - Deployment instructions: `git push heroku master`
 

@@ -5,9 +5,9 @@
 ### Game API Model
 ```
 {
-  "token": "t0k3n",          # The game's uniqe identifyer
+  "token": "t0k3n",          # The game's unique identifier
   "status": null,            # Status of the game: {started, ended, expired}
-  "user_id": 22,             # The midburn profile user id
+  "user_id": 22,             # The Midburn profile user id
   "answered_correctly": 0,   # Questions that were answered correctly during this game
   "questions_count": 0,      # Questions attached to this game
   "questions": []            # Questions array, where each object in the array is the question model
@@ -18,7 +18,7 @@
 ```
 {
   "id": 38,                                       # The id of the question
-  "body": "מישהו ממש מעצבן אותך במידברן, אתה:",   # Question's body. For question_type: 'text' 
+  "body": "מישהו ממש מעצבן אותך במידברן, אתה:",   # Question's body. For question_type: 'text'
                                                       questions, this will include the text of the question.
                                                       For other types, body is a url for the source
                                                       The be included while presenting the question.
@@ -35,7 +35,7 @@
 {                                                                 
   "id": 149,                    # The id of the answer
   "answer_type": "text",        # 3 answer types: {"text", "image", "video"}
-  "body": "דוקר אותו עם נוצה"    # Answer body. Simular to question's body.
+  "body": "דוקר אותו עם נוצה"    # Answer body. Similar to question's body.
 }
 ```
 
