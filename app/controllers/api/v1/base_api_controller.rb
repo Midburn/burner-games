@@ -4,6 +4,7 @@ module Api
       respond_to :json, except: %i()
       before_action :validate_json
       before_filter :default_format_json
+      ActionController::Parameters.action_on_unpermitted_parameters = :raise
 
       def validate_json
         JSON.parse(request.raw_post).deep_symbolize_keys
