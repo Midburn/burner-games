@@ -30,7 +30,7 @@
 }
 ```
 
-### Question API Model
+### Answer API Model
 ```
 {                                                                 
   "id": 149,                    # The id of the answer

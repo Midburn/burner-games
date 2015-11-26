@@ -7,12 +7,12 @@ class Question < ActiveRecord::Base
                     leaving_no_trace: 8, participation: 9, immediacy: 10 }
   enum level: { easy: 0, very_hard: 100 }
 
-  # Associations
+  # associations
   has_many :user_answers, dependent: :destroy
   has_many :answers, through: :user_answers, dependent: :destroy
   has_and_belongs_to_many :games, through: :games_questions
 
-  # Validations
+  # validations
   validates :body, presence: true
   validates :body, url: true, if: -> { question_type != "text" }
   validates :question_type, presence: true
@@ -20,6 +20,9 @@ class Question < ActiveRecord::Base
   # scopes
   scope :easy,      -> { where level: 0 }
   scope :very_hard, -> { where level: 100 }
+
+  # nested attributes
+  accepts_nested_attributes_for :answers
 
   def self.random_question(level)
     case level
