@@ -1,0 +1,64 @@
+<h1>Add New Question!</h1>
+
+<%= form_tag("question/add_new_question", method: "post") do %>
+  
+  <!-- Question Body -->
+  <h2>Question's body</h2>
+  <%= text_area_tag(:body, "השאלה שלי היא...?", size: "80x2") %>
+  
+  <!-- Question Type -->
+  <h2>Type</h2>
+  <%= radio_button_tag(:question_type, "text", true) %>
+  <%= label_tag(:question_type_text, "Text") %></br>
+  <%= radio_button_tag(:question_type, "image") %>
+  <%= label_tag(:question_type_image, "Image") %></br>
+  <%= radio_button_tag(:question_type, "video") %>
+  <%= label_tag(:question_type_video, "Video") %></br>
+
+  <!-- category -->
+  <h2>Category</h2>
+  <%= radio_button_tag(:category, "other", true) %>
+  <%= label_tag(:category_other, "other") %></br>
+  <%= radio_button_tag(:category, "inclusion") %>
+  <%= label_tag(:category_inclusion, "inclusion") %></br>
+  <%= radio_button_tag(:category, "gifting") %>
+  <%= label_tag(:category_gifting, "gifting") %></br>
+  <%= radio_button_tag(:category, "decommodification") %>
+  <%= label_tag(:category_decommodification, "decommodification") %></br>
+  <%= radio_button_tag(:category, "radical_self_reliance") %>
+  <%= label_tag(:category_radical_self_reliance, "radical_self_reliance") %></br>
+  <%= radio_button_tag(:category, "radical_self_expression") %>
+  <%= label_tag(:category_radical_self_expression, "radical_self_expression") %></br>
+  <%= radio_button_tag(:category, "communal_effort") %>
+  <%= label_tag(:category_communal_effort, "communal_effort") %></br>
+  <%= radio_button_tag(:category, "civic_responsibility") %>
+  <%= label_tag(:category_civic_responsibility, "civic_responsibility") %></br>
+  <%= radio_button_tag(:category, "leaving_no_trace") %>
+  <%= label_tag(:category_leaving_no_trace, "leaving_no_trace") %></br>
+  <%= radio_button_tag(:category, "participation") %>
+  <%= label_tag(:category_participation, "participation") %></br>
+  <%= radio_button_tag(:category, "immediacy") %>
+  <%= label_tag(:category_immediacy, "immediacy") %></br>
+
+  <!-- level -->
+  <h2>Level</h2>
+  <%= radio_button_tag(:level, "easy", true) %>
+  <%= label_tag(:level_text, "easy") %></br>
+  <%= radio_button_tag(:level, "very hard") %>
+  <%= label_tag(:level_text, "very hard") %></br>
+
+  <!-- answers -->
+  <h2>Possible Answers</h2>
+  <h6>If you want a question with more or less then 4 answers, it is supported(!!) but you will have to do it post creating the question.</h6>
+  <h6>Sorry. I was too lazy creating a dynamic web form.</h6>
+
+  <%= text_area_tag(:answer_1, "תשובה 1", size: "80x2") %>
+  <%= text_area_tag(:answer_2, "תשובה 2", size: "80x2") %>
+  <%= text_area_tag(:answer_3, "תשובה 3", size: "80x2") %>
+  <%= text_area_tag(:answer_4, "תשובה 4", size: "80x2") %>
+
+
+  </br>
+  <%= submit_tag("Add") %>
+
+<% end %>

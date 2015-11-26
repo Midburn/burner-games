@@ -1,3 +1,7 @@
+# Register the new question menu item
+require Rails.root.join('lib', 'rails_admin', 'add_new_question.rb')
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::AddNewQuestion)
+
 RailsAdmin.config do |config|
 
   ### Popular gems integration
@@ -22,6 +26,8 @@ RailsAdmin.config do |config|
     new
     export
     bulk_delete
+
+    add_new_question
     
     # member actions
     show
