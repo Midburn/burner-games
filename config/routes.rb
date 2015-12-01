@@ -6,7 +6,18 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'application#root', defaults: { format: 'html' }
 
+  # webapp
   get "/webapp", to: "application#root", defaults: { format: 'html' }
+
+  # static pages that were made on the midburn hackaton
+  get '/help-pop-up', to: redirect('/midburn-hackaton/help-pop-up/index.html')
+  get '/home-page', to: redirect('/midburn-hackaton/home-page/index.html')
+  get '/image-answer', to: redirect('/midburn-hackaton/image-answer/index.html')
+  get '/image-question', to: redirect('/midburn-hackaton/image-question/index.html')
+  get '/right-answer-pop-up', to: redirect('/midburn-hackaton/right-answer-pop-up/index.html')
+  get '/successes-pop-up', to: redirect('/midburn-hackaton/successes-pop-up/index.html')
+  get '/text-question', to: redirect('/midburn-hackaton/text-question/index.html')
+  get '/wrong-answer-pop-up', to: redirect('/midburn-hackaton/wrong-answer-pop-up/index.html')
 
   namespace :api, format: false do
     namespace :v1 do

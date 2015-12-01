@@ -1,0 +1,30 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('https://i.icomoon.io/public/temp/b69769fa3e/UntitledProject/icomoon.eot?v0cyf1');
+	src:url('https://i.icomoon.io/public/temp/b69769fa3e/UntitledProject/icomoon.eot?v0cyf1#iefix') format('embedded-opentype'),
+		url('https://i.icomoon.io/public/temp/b69769fa3e/UntitledProject/icomoon.ttf?v0cyf1') format('truetype'),
+		url('https://i.icomoon.io/public/temp/b69769fa3e/UntitledProject/icomoon.woff?v0cyf1') format('woff'),
+		url('https://i.icomoon.io/public/temp/b69769fa3e/UntitledProject/icomoon.svg?v0cyf1#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-lifesaver9:before {
+	content: "\e900";
+}
+

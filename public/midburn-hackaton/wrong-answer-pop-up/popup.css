@@ -1,0 +1,176 @@
+.black {
+background-color: rgba(0, 0, 0, 0.8);
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0em;
+}
+.popup {
+    height: 330px;
+    background-color: #FFF;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    border-radius: 6px;
+    z-index: 10;
+    width: 535px;
+    margin-top: -31em;
+}
+.app-bar {
+background-color: #E7E5E5;
+text-align: center;
+vertical-align: middle;
+font-size: 24px;
+padding: 20px 0px;
+}
+.popup-title {
+vertical-align: middle;
+}
+.X {
+float: left;
+margin-top: -45px;
+margin-left: 10px;
+font-size: 16px;
+cursor: pointer;
+}
+.X:hover {
+color: red;
+}
+.popup-text {
+height: 170px;
+width: 535px;
+text-align: center;
+vertical-align: middle;
+display: table-cell;
+font-size: 35px;
+font-weight: 700;
+}
+.guide {
+	width: 240px;
+	margin-right: 20px;
+	padding: 5px 0px;
+    font-size: 24px;
+	background: #0d47be;
+    color: #FFF;
+    border-radius: 9px;
+    text-align: center;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #0072bc;
+	font-family: "Alef Hebrew", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+	white-space: normal;
+	cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+.guide:hover {
+	color: #0d47be;
+    background: #fff;
+}
+.fb-help {
+	width: 240px;
+	margin-right: 10px;
+	padding: 5px 0px;
+    font-size: 24px;
+	background: #0d47be;
+    color: #FFF;
+    border-radius: 9px;
+    text-align: center;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #0072bc;
+	font-family: "Alef Hebrew", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+	white-space: normal;
+	cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+.fb-help:hover {
+	color: #0d47be;
+    background: #fff;
+}
+.next {
+	width: 240px;
+	margin-right: 10px;
+	position: absolute;
+	padding: 21px 0px;
+    font-size: 24px;
+	background: #0d47be;
+    color: #FFF;
+    border-radius: 9px;
+    text-align: center;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #0072bc;
+	font-family: "Alef Hebrew", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+	white-space: normal;
+	cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+.next:hover {
+	color: #0d47be;
+    background: #fff;
+}
+.go {
+	width: 240px;
+	margin-right: 275px;
+	padding: 21px 0px;
+    font-size: 24px;
+	background: #0d47be;
+    color: #FFF;
+    border-radius: 9px;
+    text-align: center;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #0072bc;
+	font-family: "Alef Hebrew", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+	white-space: normal;
+	cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+.go:hover {
+	color: #0d47be;
+    background: #fff;
+}
+.addict {
+	width: 240px;
+	margin-right: 20px;
+	position: absolute;
+	padding: 21px 0px;
+    font-size: 24px;
+	background: #0d47be;
+    color: #FFF;
+    border-radius: 9px;
+    text-align: center;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #0072bc;
+	font-family: "Alef Hebrew", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+	white-space: normal;
+	cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+.addict:hover {
+	color: #0d47be;
+    background: #fff;
+}
+.next-single {
+	width: 240px;
+	margin-right: 148px;
+	padding: 21px 0px;
+    font-size: 24px;
+	background: #0d47be;
+    color: #FFF;
+    border-radius: 9px;
+    text-align: center;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #0072bc;
+	font-family: "Alef Hebrew", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+	white-space: normal;
+	cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+.next-single:hover {
+	color: #0d47be;
+    background: #fff;
+}
