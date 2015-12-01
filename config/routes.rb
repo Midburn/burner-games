@@ -11,11 +11,11 @@ Rails.application.routes.draw do
   namespace :api, format: false do
     namespace :v1 do
       # games
-      post "/games/new",                 to: "games#create"
-      get  "/games/:token",              to: "games#get"
-      get  "/games/:token/questions",    to: "games#questions"
-      post "/games/:token/new_question", to: "games#new_question"
-      post "/games/:token/answer",       to: "games#answer"
+      post "/games/new",                      to: "games#create_game"
+      get  "/games/:game_token",              to: "games#get"
+      get  "/games/:game_token/questions",    to: "games#questions"
+      post "/games/:game_token/new_question", to: "games#new_question"
+      post "/games/:game_token/answer",       to: "games#answer"
     end
 
     # match '*path', to: redirect("/api/v1/%{path}"), via: :all

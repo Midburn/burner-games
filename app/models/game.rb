@@ -4,6 +4,7 @@ class Game < ActiveRecord::Base
   tokenable_by 6
 
   # Associations
+  has_one :session
   has_and_belongs_to_many :questions, through: :games_questions
 
   # Validations

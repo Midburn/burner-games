@@ -1,5 +1,7 @@
 module Api
   module V1
+    SESSION_TOKEN_LENGTH = 22
+    
     STATUS_OK = "ok"
     STATUS_ERROR = "error"
 

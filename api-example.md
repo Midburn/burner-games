@@ -2,6 +2,13 @@
 
 ## Models
 
+### Session API Model
+```
+{
+  "token": "mVOwygivPVxOq3VJerOK92"
+}
+```
+
 ### Game API Model
 ```
 {
@@ -49,19 +56,29 @@ curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --heade
 ##### Response:
 ```bash
 {
-  "status": null,
-  "token": "xfu6Zy",
-  "user_id": 22,
-  "answered_correctly": 0,
-  "questions_count": 0
+  "status": "ok",
+  "session": {
+    "token": "oBOExyhikEArxEpjDwGlhl"
+  },
+  "game": {
+    "token": "t3sZAC",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 0,
+    "questions_count": 0
+  }
 }
 ```
 
-###### Notice that the game's token is `xfu6Zy`, we will need it for all of our future requests
+> **PLEASE NOTICE**
+> The game's token is `t3sZAC`
+> The API Session token is: `oBOExyhikEArxEpjDwGlhl`.
+> All of the games api call will be perform using those secret tokens. 
+> If those are not matched, the call will be rejected.
 
 ### 2. Get List of Questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/t3sZAC/questions -d '{"session":"oBOExyhikEArxEpjDwGlhl"}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -82,7 +99,7 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
 
 ### 3. Add Question To Game: "xfu6Zy"
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/new_question -d '{}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/t3sZAC/new_question -d '{"session":"oBOExyhikEArxEpjDwGlhl"}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -122,7 +139,7 @@ curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/new_question -d '{}' --he
 
 ### 4. Listing the Game's questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/t3sZAC/questions -d '{"session":"oBOExyhikEArxEpjDwGlhl"}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -130,36 +147,36 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
 ```bash
 {
   "game": {
-    "token": "xfu6Zy",
+    "token": "t3sZAC",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
     "questions_count": 1,
     "questions": [
       {
-        "id": 38,
+        "id": 6,
         "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
         "question_type": "text",
         "level": "easy",
         "category": null,
         "answers": [
           {
-            "id": 149,
+            "id": 21,
             "answer_type": "text",
             "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
           },
           {
-            "id": 150,
+            "id": 22,
             "answer_type": "text",
             "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
           },
           {
-            "id": 151,
+            "id": 23,
             "answer_type": "text",
             "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
           },
           {
-            "id": 152,
+            "id": 24,
             "answer_type": "text",
             "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
           }
@@ -167,8 +184,7 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
       }
     ]
   }
-}
-```
+}```
 
 ### 5. Submitting a WRONG Answer For a Question
 ```bash
