@@ -39,10 +39,6 @@ module Api
         params.require(:user_id)
       end
 
-      def ensure_user_id!
-        params.require(:user_id)
-      end
-
       def ensure_answer_ids!
         params.require(:answer_ids)
       end
