@@ -3,6 +3,8 @@ class Game < ActiveRecord::Base
   include Tokenable
   tokenable_by 6
 
+  GAME_PASS_THRESHOLD = 3
+
   # Associations
   has_and_belongs_to_many :questions, through: :games_questions
 
@@ -31,6 +33,10 @@ class Game < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def game_ended?
+    answered_correctly > GAME_PASS_THRESHOLD
   end
 
   def questions_count

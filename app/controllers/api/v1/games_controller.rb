@@ -19,7 +19,11 @@ module Api
       end
 
       def new_question
-        @question = @game.new_question(params[:level] || "easy")
+        unless @game.game_ended? 
+          @question = @game.new_question(params[:level] || "easy")
+        else
+          @game_ended = true
+        end
       end
 
       def questions
