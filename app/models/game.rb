@@ -28,7 +28,7 @@ class Game < ActiveRecord::Base
 
   def user_answered(question_id, answer_ids)
     if user_correct?(question_id, answer_ids)
-      update(answered_correctly: +1)
+      update_attribute(:answered_correctly, answered_correctly + 1)
       true
     else
       false
