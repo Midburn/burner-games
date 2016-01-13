@@ -20,17 +20,17 @@ group :development, :test do
   gem "webmock"                   # WebMock allows stubbing HTTP requests and setting expectations on HTTP requests
   gem 'spring'                    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "database_cleaner"          # Strategies for cleaning databases
-  gem "rspec"
-  gem 'rspec-rails', '~> 3.0'
+  # gem "rspec"                   # DISABLED FOR NOW: will be added later
+  # gem 'rspec-rails', '~> 3.0'   # DISABLED FOR NOW: will be added later
   gem "factory_girl_rails"        # Create factories
   gem "fuubar"                    # The instafailing RSpec progress bar formatter
-  gem "timecop"                   # A gem providing "time travel" and "time freezing" capabilities
-  gem "guard"                     # Guard is a command line tool to easily handle events on file system modifications.
-  gem "guard-rspec"               # Guard::RSpec automatically run your specs (much like autotest).
+  # gem "guard"                   # DISABLED FOR NOW: Guard is a command line tool to easily handle events on file system modifications.
+  # gem "guard-rspec"             # DISABLED FOR NOW: Guard::RSpec automatically run your specs (much like autotest).
   gem "pry"
   gem "pry-doc"
   gem 'pry-rails'
   gem 'pry-stack_explorer'
+  gem 'dotenv-rails'
 end
 
 gem 'rails_12factor', group: :production

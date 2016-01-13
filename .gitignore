@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# env configs
+.env
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
