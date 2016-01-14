@@ -22,15 +22,5 @@ module TheBurnerGames
 
     # Load custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths << "#{config.root}/app/controllers/api/v1"
-
-
-    # Rack CORS Middleware Configuration for Rails
-    config.middleware.insert_before 0, "Rack::Cors" do
-      allow do
-        origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
-      end
-    end
-
   end
 end
