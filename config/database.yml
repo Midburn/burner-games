@@ -17,4 +17,4 @@ development:
   <<: *default
 
 production:
-  # production uses ENV["DATABASE_URL"], we don't need to setup anything
+  <<: *default
