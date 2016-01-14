@@ -5,15 +5,7 @@ module Api
       before_action :validate_json
       before_filter :default_format_json
       ActionController::Parameters.action_on_unpermitted_parameters = :raise
-
       protect_from_forgery
-
-      after_action :access_control_headers
-
-      def set_access_control_headers
-        headers['Access-Control-Allow-Origin'] = "*"
-        headers['Access-Control-Request-Method'] = %w{GET POST OPTIONS}.join(",")
-      end
 
       def validate_json
         JSON.parse(request.raw_post).deep_symbolize_keys
