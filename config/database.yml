@@ -11,7 +11,7 @@ default: &default
   password: <%= ENV["DATABASE_PASSWORD"] %>
   database: <%= ENV["DATABASE_NAME"] %>
   host: <%= ENV["DATABASE_HOST"] %>
-  port: <%= ENV["PORT"] %>
+  port: <%= ENV["DATABASE_PORT"] %>
 
 development:
   <<: *default
