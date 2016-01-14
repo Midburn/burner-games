@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   include Tokenable
   tokenable_by 6
 
-  GAME_PASS_THRESHOLD = 3
+  GAME_PASS_THRESHOLD = 10
 
   # Associations
   has_and_belongs_to_many :questions, through: :games_questions
