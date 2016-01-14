@@ -9,6 +9,8 @@ gem 'uglifier', '>= 1.3.0'        # Use Uglifier as compressor for JavaScript as
 gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'mysql2', '~> 0.3.18'
 
+gem 'rack-cors', :require => 'rack/cors' # Rack CORS Middleware
+
 # managment system
 gem 'rails_admin', '~> 0.7.0'     # Backoffice Rails data administration system
 
