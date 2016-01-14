@@ -23,4 +23,4 @@ test:
   <<: *default
 
 production:
-  <<: *default
+  # production uses ENV["DATABASE_URL"], we don't need to setup anything
