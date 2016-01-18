@@ -1,16 +1,14 @@
 # The Burner Games
 
-Burner games is a simple API based trivia game develop by the midburn.org organization volunteers as an educational step for the Midburn organization ticketing system. While playing the game, the participates will be questioned about Burning Man 10 principeles which are the main guidance of the Midburn Organization.
+Burner games is a simple trivia game developed by the midburn.org organization volunteers as an educational step for the [Midburn organization](http://midburn.org) ticketing system. While playing the game, the participants will be questioned about [Midburn 10 principeles](http://midburn.org/en-ten-principles/) which are the primary guidance of the Midburn Organization.
 
-To read more about Midburn organization, see: http://midburn.org
-
-Main Goal: Educate the Midburn events participants about the 10 participates, the event's vibe, participates' expected behavior in a simple, fun & humoristic way.
+Main Goal: Educate the Midburn events participants about the 10 principles, the events' vibe and explain the participants' behavior in a simple, fun & humoristic way.
 
 ## Product: Games Rules
 
-1. Each midburn profile will have to pass the trivia before purchasing a midburn event ticket or while transferring the ticket to a different profile (with the exception of manual admin intervention).
-1. Participants will be presented with 10 questions.
-1. The questions will be in different levels. The initial 3 questions will be easy questions.
+1. Each midburn profile will have to pass the game before purchasing a midburn event ticket or while transferring the ticket to a different profile (with the exception of manual admin intervention).
+1. Participants will be presented with 10 random questions.
+1. The questions will be in different difficulty levels. The initial 3 questions will be easy questions.
 1. Questions are skippable.
 1. While playing, wrong answers will show the participant the correct answer and will move forward.
 1. While playing, a link on the user interface will refer to midburn.org website for additional reading.
@@ -19,11 +17,11 @@ Main Goal: Educate the Midburn events participants about the 10 participates, th
 There are 3 types of questions: text, image and video questions. There are 11 questions categories and questions level is a number between 0 to 100 where 0 is the easy and 100 is hardest possible question. For more info, see Question model.
 
 ##### Answers
-Similarly to questions, answers can be text, images or video answers. There is no limits for the amount of answers in a question or the amount of correct answers. Although, there are no half correct questions, for example: if a question consist of 4 answers, among these 2 are correct, the only *"right"* way to answer the question will be selecting both answers. For more info, see Answer model.
+Similarly to questions, answers can be text, images or video answers. There are no limits for the amount of answers in a question or the amount of correct answers. There are no "half correct" questions, for example: if a question consist of 4 answers, among these 2 are correct, the only *"right"* way to answer the question will be selecting both answers. For more info, see Answer model.
 
 ## Development Guidance (for all levels)
 
-This repo (or application) was developed as part of the Midburn platform, therefor it was designed as an API first.
+This pplication is developed as part of the Midburn platform, therefore it was designed as an API first.
 > Find a full API documentation / examples on `api-example.md`
 
 `burner-games` is deployed on `https://burner-games.herokuapp.com` for development purposes. If you're less experienced with running Ruby on Rails services & you work on the front-end side, you may use the heroku.com dev environment as your back-end service.
