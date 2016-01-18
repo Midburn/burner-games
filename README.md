@@ -1,5 +1,8 @@
 # The Burner Games
 
+(A Completely Automated Public Turing test to tell Burners and Humans Apart or in short, CAPTBHA)
+
+
 Burner games is a simple API based trivia game develop by the midburn.org organization volunteers as an educational step for the Midburn organization ticketing system. While playing the game, the participates will be questioned about Burning Man 10 principeles which are the main guidance of the Midburn Organization.
 
 To read more about Midburn organization, see: http://midburn.org
