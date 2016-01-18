@@ -1,7 +1,7 @@
 module Api
   module V1
     class Api::V1::BaseApiController < ActionController::Base
-      respond_to :json, except: %i()
+      # respond_to :json, except: %i()
       before_action :validate_json
       before_filter :default_format_json
       ActionController::Parameters.action_on_unpermitted_parameters = :raise
