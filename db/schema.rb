@@ -13,14 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20151124004702) do
 
-  create_table "answers", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
     t.integer  "answer_type", default: 0, null: false
     t.string   "body",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "games", force: true do |t|
+  create_table "games", force: :cascade do |t|
     t.string   "token"
     t.string   "status"
     t.datetime "created_at"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20151124004702) do
     t.integer  "answered_correctly", default: 0, null: false
   end
 
-  create_table "games_questions", id: false, force: true do |t|
+  create_table "games_questions", id: false, force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "question_id"
     t.datetime "created_at"
@@ -40,7 +43,7 @@ ActiveRecord::Schema.define(version: 20151124004702) do
   add_index "games_questions", ["game_id"], name: "index_games_questions_on_game_id", using: :btree
   add_index "games_questions", ["question_id"], name: "index_games_questions_on_question_id", using: :btree
 
-  create_table "questions", force: true do |t|
+  create_table "questions", force: :cascade do |t|
     t.string   "body",                        null: false
     t.integer  "question_type", default: 0,   null: false
     t.integer  "level",         default: 0
@@ -49,13 +52,13 @@ ActiveRecord::Schema.define(version: 20151124004702) do
     t.datetime "updated_at"
   end
 
-  create_table "sessions", force: true do |t|
+  create_table "sessions", force: :cascade do |t|
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_answers", force: true do |t|
+  create_table "user_answers", force: :cascade do |t|
     t.integer "question_id"
     t.integer "answer_id"
     t.boolean "correct",     default: false, null: false

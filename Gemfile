@@ -8,6 +8,7 @@ gem 'sass-rails', '~> 4.0.3'      # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0'        # Use Uglifier as compressor for JavaScript assets
 gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'mysql2', '~> 0.3.18'
+gem 'pg'                          # Use postgres as the database for Active Record
 
 gem 'rack-cors', :require => 'rack/cors' # Rack CORS Middleware
 
