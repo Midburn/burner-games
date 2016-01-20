@@ -21,7 +21,7 @@ Similarly to questions, answers can be text, images or video answers. There are 
 
 ## Development Guidance (for all levels)
 
-This pplication is developed as part of the Midburn platform, therefore it was designed as an API first.
+This application is developed as part of the Midburn platform, therefore it was designed as an API first.
 > Find a full API documentation / examples on `api-example.md`
 
 `burner-games` is deployed on `https://burner-games.herokuapp.com` for development purposes. If you're less experienced with running Ruby on Rails services & you work on the front-end side, you may use the heroku.com dev environment as your back-end service.
