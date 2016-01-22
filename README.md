@@ -58,12 +58,12 @@ Thank you for your interest in contributing, you are awesome!!!! yet in order to
 
 ### API Spec
 
-Please follow: api-spec.md document.
+Please follow: api-spec.md document (TODO).
 
 ### Technical Design
 
-Please see technical-design.md document.
+Please see the [technical-design.md document](https://github.com/Midburn/burner-games/blob/master/technical-design.md).
 
 ### LICENSE
 
-See LICENSE file included in this repository.
+See [LICENSE file included in this repository](https://github.com/Midburn/burner-games/blob/master/LICENSE) (GPL).
