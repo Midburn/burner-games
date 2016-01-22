@@ -2,7 +2,9 @@
 
 Burner games is a simple trivia game developed by the midburn.org organization volunteers as an educational step for the [Midburn organization](http://midburn.org) ticketing system. While playing the game, the participants will be questioned about [Midburn 10 principeles](http://midburn.org/en-ten-principles/) which are the primary guidance of the Midburn Organization.
 
-Main Goal: Educate the Midburn events participants about the 10 principles, the events' vibe and explain the participants' behavior in a simple, fun & humoristic way.
+- **Primary Goal**: Educate the Midburn events participants about the 10 principles, the events' vibe and explain the participants' behavior in a simple, fun & humoristic way.
+- Secondary Goal: Ensure that participants who buy tickets have done the effort to educate themselves, and get the right "mix" of people admitted.
+- Tertiary Goal: Prevent bots from automatically purchasing many tickets for scalping purposes.
 
 ## Product: Games Rules
 
