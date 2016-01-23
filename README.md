@@ -69,3 +69,6 @@ Please see technical-design.md document.
 ### LICENSE
 
 See LICENSE file included in this repository.
+
+### See Also
+- [The frontend repository](https://github.com/Midburn/Midburn-Quiz-Frontend/)
