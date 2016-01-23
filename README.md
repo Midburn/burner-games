@@ -58,7 +58,7 @@ Thank you for your interest in contributing, you are awesome!!!! yet in order to
 
 ### API Spec
 
-Please follow: api-spec.md document (TODO).
+Please follow: [api-spec.md document](https://github.com/Midburn/burner-games/blob/master/technical-design.md).
 
 ### Technical Design
 
