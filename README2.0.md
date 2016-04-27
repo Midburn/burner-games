@@ -8,8 +8,9 @@ Burner games is a simple trivia game developed by the midburn.org organization v
 
 ## Product: Games Rules
 
-1. Each midburn profile will have to pass the game before purchasing a midburn event ticket or while transferring the ticket to a different profile (with the exception of manual admin intervention).
-1. Participants will be presented with 10 random questions.
+1. Each midburn profile will get a link to the game upon getting the mail with their purchased midburn ticket.
+1. In order to win, participants will have to pass 5 different topics/"categories" (randomly out of 10+ possible options), each one is comprised of a series of 5-10 questions.
+2. 
 1. The questions will be in different difficulty levels. The initial 3 questions will be easy questions.
 1. Questions are skippable.
 1. While playing, wrong answers will show the participant the correct answer and will move forward.
