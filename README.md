@@ -19,15 +19,22 @@ Burner games is a simple trivia game developed by the midburn.org organization v
 3. Second life line eliminates two out of four answers (the two must be false answers).
 1. A permanent link on the user interface will refer to midburn.org website for additional reading.
 
-##### Questions
+#### Questions
 There are 3 types of questions: text, image and video questions. There are 11 questions categories and questions level is a number between 0 to 100 where 0 is the easy and 100 is hardest possible question. For more info, see Question model.
 
 **For the scope of first public version (May 2016) we will implement in the front end only text and image questions, without different difficulties**
 
-##### Answers
+#### Answers
 Similarly to questions, answers can be text, images or video answers. There are no limits for the amount of answers in a question or the amount of correct answers. There are no "half correct" questions, for example: if a question consist of 4 answers, among these 2 are correct, the only *"right"* way to answer the question will be selecting both answers. For more info, see Answer model.
 
 **For the scope of first public version (May 2016) we will implement in the front end only text answers, and a single correct answer to eacha question**
+
+## Visual Indications in the front end
+1. Correct answer popup/resonse
+2. Wrong answer popup/resonse (acknowleging what the correct answer was)
+3. Progression through game (burning man graphic on the left, animated, marking current topic, including topics names)
+4. Progression trhough topic (UI element indicating how many more correct answers are needed to pass)
+5. Life lines (available/unavailable)
 
 ## Development Guidance (for all levels)
 
