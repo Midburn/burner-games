@@ -9,12 +9,15 @@ Burner games is a simple trivia game developed by the midburn.org organization v
 ## Product: Games Rules
 
 1. Each midburn profile will get a link to the game upon getting the mail with their purchased midburn ticket.
-1. In order to win, participants will have to pass 5 different topics/"categories" (randomly out of 10+ possible options), each one is comprised of a series of 5-10 questions.
-2. 
-1. The questions will be in different difficulty levels. The initial 3 questions will be easy questions.
-1. Questions are skippable.
-1. While playing, wrong answers will show the participant the correct answer and will move forward.
-1. While playing, a link on the user interface will refer to midburn.org website for additional reading.
+1. In order to win, participants will have to pass 5 different topics/"categories" (selected per game randomly out of 10+ possible options).
+2. Passing a topic means answering 2 consecutive questions correctly, from a pool of 5-10 questions per topic.
+3. As long as there aren't 2 consecutive correct answers, topic's questions continue to cycle (order of questions in the cycle is determined per game randomly).
+1. Wrong answers will show the participant the correct answer before moving to the next question.
+1. All questions will have the same difficulty level.
+1. There are two "life lines" available for a single use per topic. Each one is not available any more once used, but when passing to the next topic, both are available again.
+2. First life line allows to skip a question without losing the "correct answer streak".
+3. Second life line eliminates two out of four answers (the two must be false answers).
+1. A permanent link on the user interface will refer to midburn.org website for additional reading.
 
 ##### Questions
 There are 3 types of questions: text, image and video questions. There are 11 questions categories and questions level is a number between 0 to 100 where 0 is the easy and 100 is hardest possible question. For more info, see Question model.
