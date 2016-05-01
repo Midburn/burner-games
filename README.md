@@ -84,3 +84,6 @@ Please see technical-design.md document.
 ### LICENSE
 
 See LICENSE file included in this repository.
+
+### QA
+If you want to help us QA this game, check out the [test instance](https://s3-eu-west-1.amazonaws.com/burner-games-frontend/index.html?userId=11#), and report issues on this repository (backened) or on the [frontend repo](https://github.com/Midburn/Midburn-Quiz-Frontend).
