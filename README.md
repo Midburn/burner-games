@@ -75,7 +75,7 @@ Thank you for your interest in contributing, you are awesome!!!! yet in order to
 
 ### API Spec
 
-Please follow: api-spec.md document.
+Please follow: `api-example.md` document.
 
 ### Technical Design
 
