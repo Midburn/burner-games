@@ -19,8 +19,8 @@ development:
   port: <%= ENV["DATABASE_POST"] %>
 
 production:
-  url: <%= ENV['DATABASE_URL'] %>
-  
+  encoding: utf8
+
 test:
   adapter: mysql2
   encoding: utf8
