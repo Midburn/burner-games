@@ -26,15 +26,21 @@ class Game < ActiveRecord::Base
   end
 
   def new_question(category)
-    question = loop do
-      qq = Question::random_question(category)
-      raise "Could not retrieve a random question. Questions db might be empty!" if qq.nil?
 
-      # find a unique question for our game
-      break qq unless questions.include? qq || Questions.where(category: category).count == questions.where(category: category).count
+    # if no new question is available
+    if Question.where(category: Question.categories[category]).count <= questions.where(category: Question.categories[category]).count
+      question = questions.where(category: Question.categories[category]).sample
+    else    
+      question = loop do
+        qq = Question::random_question(category)
+        
+        # prefer a unique question for our game
+        break qq unless questions.include? qq
+      end
+
+      questions << question unless question.nil?
     end
 
-    questions << question
     question
   end
 

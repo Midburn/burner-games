@@ -25,7 +25,10 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :answers
 
   def self.random_question(category)
-    Question.where(category: Question.categories[category]).sample
+    question = Question.where(category: Question.categories[category]).sample
+    raise "Could not retrieve a random question. Questions db might be empty!" if question.nil?
+    
+    question
   end
 
   def self.random_categories(count)
