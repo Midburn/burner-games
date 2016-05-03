@@ -75,13 +75,13 @@ Thank you for your interest in contributing, you are awesome!!!! yet in order to
 
 - Follow git-flow spec for correct use of git in this repo. If you are not sure about something, ask (open a ticket). If you can't wait for an answer, fork the repo, commit and continue working on the forked version. You will still be able to submit pull request to the original repo! :+1: :+1:
 
-### API Spec
-
-Please follow: [api-spec.md document](https://github.com/Midburn/burner-games/blob/master/technical-design.md).
-
 ### Technical Design
 
 Please see the [technical-design.md document](https://github.com/Midburn/burner-games/blob/master/technical-design.md).
+
+### API Spec
+
+Please follow: [api-example.md document](https://github.com/Midburn/burner-games/blob/master/api-example.md) for full spec and examples on how to use the API.
 
 ### See Also
 - [The frontend repository](https://github.com/Midburn/Midburn-Quiz-Frontend/)
