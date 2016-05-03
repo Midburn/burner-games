@@ -214,20 +214,6 @@ curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id"
 ```bash
 {
   "response": "wrong",
-  "game": {
-    "token": "JB1wRZ",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 1,
-    "categories": [
-      "communal_effort",
-      "radical_self_expression",
-      "inclusion",
-      "gifting",
-      "civic_responsibility"
-    ]
-  }
   "correct_answers": [
     {
       "id": 60,
@@ -290,7 +276,30 @@ curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id"
 }
 ```
 
-### 8. Submitting a CORRECT Multiple Choice Answer
+### 8. Submitting a HINT request For a Question
+```bash
+curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/hint -d '{"question_id": "15"}' --header "Content-Type:application/json"
+```
+
+##### Response:
+```bash
+{
+  "hints": [
+    {
+      "id": 60,
+      "answer_type": "text",
+      "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
+    },
+    {
+      "id": 57,
+      "answer_type": "text",
+      "body": "שמח שסוף סוף יש מסיבה שלא צריך לשלם עליה בכניסה, כי בדיוק סגרת חודשיים אבטלה, והולך אליה בכיסים ריקים ובלב מלא."
+    }
+  ]
+}
+```
+
+### 9. Submitting a CORRECT Multiple Choice Answer
 ```bash
 curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152,153"]}' --header "Content-Type:application/json"
 ```

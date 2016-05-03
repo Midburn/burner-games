@@ -2,8 +2,8 @@ module Api
   module V1
     class GamesController < BaseApiController
       before_action :ensure_user_id!, only: %i(create)
-      before_action :ensure_game_found!, only: %i(get update new_question answer questions)
-      before_action :ensure_question_found!, only: %i(answer)
+      before_action :ensure_game_found!, only: %i(get update new_question answer questions hint)
+      before_action :ensure_question_found!, only: %i(answer hint)
       before_action :ensure_answer_ids!, only: %i(answer)
       before_action :games_params
       before_action :ensure_category!, only: %i(new_question)
@@ -25,7 +25,13 @@ module Api
       end
 
       def answer
+        @question = Question.find(params[:question_id])
         @success = @game.user_answered(params[:question_id], params[:answer_ids])
+      end
+
+      def hint
+        question = Question.find(params[:question_id])
+        @hints = [question.corrects.sample, question.falses.sample].shuffle
       end
 
       def update
