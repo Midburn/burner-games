@@ -228,6 +228,13 @@ curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id"
       "civic_responsibility"
     ]
   }
+  "correct_answers": [
+    {
+      "id": 60,
+      "answer_type": "text",
+      "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
+    }
+  ]
 }
 ```
 
