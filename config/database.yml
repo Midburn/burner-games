@@ -1,24 +1,37 @@
-# SQLite version 3.x
-#   gem install sqlite3
+##########################################################################################
 #
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
-default: &default
-  adapter: postgresql
-  pool: 5
-  encoding: utf8
-  username: <%= ENV["DATABASE_USERNAME"] %>
-  password: <%= ENV["DATABASE_PASSWORD"] %>
-  database: <%= ENV["DATABASE_NAME"] %>
-  # host: <%= ENV["DATABASE_HOST"] %>
-  # port: <%= ENV["DATABASE_PORT"] %>
+# Please use env configs only.
+# For easy environment configuration modify the ".env" file on the root of this repo.
+# For more information read: https://github.com/bkeepers/dotenv
+# 
+# For an easy start, follow instructions on ".env-example" file at the root of this repo.
+# Cheers, Elad.
+# 
+##########################################################################################
 
 development:
-  <<: *default
+  adapter: mysql2
+  encoding: utf8
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_POST"] %>
 
 production:
-  <<: *default
+  adapter: mysql2
+  encoding: utf8
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_POST"] %>
 
 test:
-  <<: *default
+  adapter: mysql2
+  encoding: utf8
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_POST"] %>
