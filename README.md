@@ -8,18 +8,33 @@ Burner games is a simple trivia game developed by the midburn.org organization v
 
 ## Product: Games Rules
 
-1. Each midburn profile will have to pass the game before purchasing a midburn event ticket or while transferring the ticket to a different profile (with the exception of manual admin intervention).
-1. Participants will be presented with 10 random questions.
-1. The questions will be in different difficulty levels. The initial 3 questions will be easy questions.
-1. Questions are skippable.
-1. While playing, wrong answers will show the participant the correct answer and will move forward.
-1. While playing, a link on the user interface will refer to midburn.org website for additional reading.
+1. Each midburn profile will get a link to the game upon getting the mail with their purchased midburn ticket.
+1. In order to win, participants will have to pass 5 different topics (="categories"), selected per game randomly out of 10+ possible options.
+2. Passing a topic means answering 2 consecutive questions correctly, from a pool of 5-10 questions per topic.
+3. As long as there aren't 2 consecutive correct answers, topic's questions continue to cycle (order of questions in the cycle is determined per game randomly).
+1. Wrong answers will show the participant the correct answer before moving to the next question.
+1. All questions will have the same difficulty level.
+1. There are two "life lines" available for single use per topic. Each one is not available any more once used, but when passing to the next topic, both are available again.
+2. First life line allows to skip a question without losing the "correct answer streak".
+3. Second life line eliminates two out of four answers (the two must be false answers).
+1. A permanent link on the user interface will refer to midburn.org website for additional reading.
 
-##### Questions
+#### Questions
 There are 3 types of questions: text, image and video questions. There are 11 questions categories and questions level is a number between 0 to 100 where 0 is the easy and 100 is hardest possible question. For more info, see Question model.
 
-##### Answers
+**For the scope of first public version (May 2016) we will implement in the front end only text and image questions, without different difficulties**
+
+#### Answers
 Similarly to questions, answers can be text, images or video answers. There are no limits for the amount of answers in a question or the amount of correct answers. There are no "half correct" questions, for example: if a question consist of 4 answers, among these 2 are correct, the only *"right"* way to answer the question will be selecting both answers. For more info, see Answer model.
+
+**For the scope of first public version (May 2016) we will implement in the front end only text answers, and a single correct answer to eacha question**
+
+## Visual Indications in the front end
+1. Correct answer popup/resonse
+2. Wrong answer popup/resonse (acknowleging what the correct answer was)
+3. Progression through game (burning man graphic on the left, animated, marking current topic, including topics names)
+4. Progression trhough topic (UI element indicating how many more correct answers are needed to pass)
+5. Life lines (available/unavailable)
 
 ## Development Guidance (for all levels)
 
