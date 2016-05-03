@@ -1,10 +1,10 @@
 class Question < ActiveRecord::Base
 
   # enums
-  enum question_type: { text: 0, image: 1, video: 2 }
-  enum category: {  other: 0, inclusion: 1, gifting: 2, decommodification: 3, radical_self_reliance: 4,
-                    radical_self_expression: 5, communal_effort: 6, civic_responsibility: 7,
-                    leaving_no_trace: 8, participation: 9, immediacy: 10 }
+  enum question_type: [ :text, :image, :video ]
+  enum category:  [ :other, :inclusion, :gifting, :decommodification, :radical_self_reliance,
+                    :radical_self_expression, :communal_effort, :civic_responsibility,
+                    :leaving_no_trace, :participation, :immediacy ]
   enum level: { easy: 0, very_hard: 100 }
 
   # associations
@@ -24,13 +24,18 @@ class Question < ActiveRecord::Base
   # nested attributes
   accepts_nested_attributes_for :answers
 
-  def self.random_question(level)
-    case level
-    when "easy"
-      Question.easy.sample
-    when "very_hard"
-      Question.very_hard.sample
+  def self.random_question(category)
+    Question.where(category: category).sample
+  end
+
+  def self.random_categories(count)
+    random_categories = []
+    loop do
+      category = Question.categories.keys.sample
+      random_categories << category unless random_categories.include? category
+      break if random_categories.count >= count
     end
+    random_categories
   end
 
   def corrects

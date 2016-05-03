@@ -9,7 +9,7 @@ namespace :midburn do
 
     array.each_with_index do |line, index|
       if line["number"] != nil
-        question = Question.new(body: line["question"], question_type: "text")
+        question = Question.new(body: line["question"], question_type: "text", category: Question::categories[Question::categories.keys.sample])
       else
         question = Question.last
       end

@@ -50,29 +50,43 @@ curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --heade
 ```bash
 {
   "status": null,
-  "token": "xfu6Zy",
+  "token": "JB1wRZ",
   "user_id": 22,
   "answered_correctly": 0,
-  "questions_count": 0
+  "questions_count": 0,
+  "categories": [
+    "communal_effort",
+    "radical_self_expression",
+    "inclusion",
+    "gifting",
+    "civic_responsibility"
+  ]
 }
 ```
 
-###### Notice that the game's token is `xfu6Zy`, we will need it for all of our future requests
+###### Notice that the game's token is `JB1wRZ`, we will need it for all of our future requests
 
 ### 2. Get List of Questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/JB1wRZ/questions -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
 ```bash
 {
   "game": {
-    "token": "xfu6Zy",
+    "token": "JB1wRZ",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
     "questions_count": 0,
+    "categories": [
+      "communal_effort",
+      "radical_self_expression",
+      "inclusion",
+      "gifting",
+      "civic_responsibility"
+    ],
     "questions": []
   }
 }
@@ -80,49 +94,63 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
 
 ###### Notice game questions list is empty.
 
-### 3. Add Question To Game: "xfu6Zy"
+### 3. Add Question To Game: "JB1wRZ" with category 'inclusion' (for list of categories see below)
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/new_question -d '{}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/new_question -d '{"category":"inclusion"}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
 ```bash
 {
-  "id": 38,
-  "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
+  "id": 15,
+  "body": "הוזמנת למסיבה ברנרית מגניבה! ועוד בחינם! אתה...",
   "question_type": "text",
   "level": "easy",
-  "category": null,
+  "category": "other",
   "answers": [
     {
-      "id": 149,
+      "id": 57,
       "answer_type": "text",
-      "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
+      "body": "שמח שסוף סוף יש מסיבה שלא צריך לשלם עליה בכניסה, כי בדיוק סגרת חודשיים אבטלה, והולך אליה בכיסים ריקים ובלב מלא."
     },
     {
-      "id": 150,
+      "id": 58,
       "answer_type": "text",
-      "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
+      "body": "מביא איתי כסף רק לבירה שאי אקנה (לעצמי) שם, ומשתדל שלא לשאול שאלות קיטבג כמו \"צריך עזרה?\"..."
     },
     {
-      "id": 151,
+      "id": 59,
       "answer_type": "text",
-      "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
+      "body": "בא עם כל החבר'ה שלי, עושים שמח ובלגן, ואז מתחפפים לפי שצריך לנקות..."
     },
     {
-      "id": 152,
+      "id": 60,
       "answer_type": "text",
-      "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
+      "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
     }
   ]
 }
 ```
 
+### 3.1. Add Question To Game: "JB1wRZ" with the wrong category.
+
+curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/new_question -d '{"category":"decommodification"}' --header "Content-Type:application/json"
+
+```bash
+{
+  "status": "error",
+  "message": "this category is not part of this game"
+}
+```
+
+> The following categories exists on the db: 
+> "other", "inclusion", "gifting", "decommodification", "radical_self_reliance", "radical_self_expression", "communal_effort", "civic_responsibility", "leaving_no_trace", "participation", "immediacy". For more, see Question model file.
+
 ###### The question model is been sent back on the `new_question` api request.
 
 ### 4. Listing the Game's questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/JB1wRZ/questions -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -130,38 +158,45 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
 ```bash
 {
   "game": {
-    "token": "xfu6Zy",
+    "token": "JB1wRZ",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
     "questions_count": 1,
+    "categories": [
+      "communal_effort",
+      "radical_self_expression",
+      "inclusion",
+      "gifting",
+      "civic_responsibility"
+    ],
     "questions": [
       {
-        "id": 38,
-        "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
+        "id": 15,
+        "body": "הוזמנת למסיבה ברנרית מגניבה! ועוד בחינם! אתה...",
         "question_type": "text",
         "level": "easy",
-        "category": null,
+        "category": "other",
         "answers": [
           {
-            "id": 149,
+            "id": 57,
             "answer_type": "text",
-            "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
+            "body": "שמח שסוף סוף יש מסיבה שלא צריך לשלם עליה בכניסה, כי בדיוק סגרת חודשיים אבטלה, והולך אליה בכיסים ריקים ובלב מלא."
           },
           {
-            "id": 150,
+            "id": 58,
             "answer_type": "text",
-            "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
+            "body": "מביא איתי כסף רק לבירה שאי אקנה (לעצמי) שם, ומשתדל שלא לשאול שאלות קיטבג כמו \"צריך עזרה?\"..."
           },
           {
-            "id": 151,
+            "id": 59,
             "answer_type": "text",
-            "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
+            "body": "בא עם כל החבר'ה שלי, עושים שמח ובלגן, ואז מתחפפים לפי שצריך לנקות..."
           },
           {
-            "id": 152,
+            "id": 60,
             "answer_type": "text",
-            "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
+            "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
           }
         ]
       }
@@ -172,7 +207,7 @@ curl -X GET http://localhost:3000/api/v1/games/xfu6Zy/questions -d '{}' --header
 
 ### 5. Submitting a WRONG Answer For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["151"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id": "15", "answer_ids":["57"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -180,18 +215,25 @@ curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id"
 {
   "response": "wrong",
   "game": {
-    "token": "xfu6Zy",
+    "token": "JB1wRZ",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
-    "questions_count": 1
+    "questions_count": 1,
+    "categories": [
+      "communal_effort",
+      "radical_self_expression",
+      "inclusion",
+      "gifting",
+      "civic_responsibility"
+    ]
   }
 }
 ```
 
 ### 6. Submitting a WRONG Multiple Choice Answer
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["151,152"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id": "15", "answer_ids":["57,58"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -199,18 +241,25 @@ curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id"
 {
   "response": "wrong",
   "game": {
-    "token": "xfu6Zy",
+    "token": "JB1wRZ",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
-    "questions_count": 1
+    "questions_count": 1,
+    "categories": [
+      "communal_effort",
+      "radical_self_expression",
+      "inclusion",
+      "gifting",
+      "civic_responsibility"
+    ]
   }
 }
 ```
 
 ### 7. Submitting a CORRECT Answer For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id": "15", "answer_ids":["60"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -218,11 +267,18 @@ curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id"
 {
   "response": "correct",
   "game": {
-    "token": "xfu6Zy",
+    "token": "JB1wRZ",
     "status": null,
     "user_id": 22,
-    "answered_correctly": 1,
-    "questions_count": 1
+    "answered_correctly": 2,
+    "questions_count": 1,
+    "categories": [
+      "communal_effort",
+      "radical_self_expression",
+      "inclusion",
+      "gifting",
+      "civic_responsibility"
+    ]
   }
 }
 ```

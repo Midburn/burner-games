@@ -5,7 +5,7 @@ class CreateQuestionsAnswers < ActiveRecord::Migration
       t.string   :body, null: false
       t.integer  :question_type, null: false, default: 0
       t.integer  :level, default: 0
-      t.string   :category, default: 0
+      t.integer  :category, default: 0
 
       t.timestamps
     end

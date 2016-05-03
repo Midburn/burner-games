@@ -11,30 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124004702) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20160503022637) do
 
   create_table "answers", force: :cascade do |t|
-    t.integer  "answer_type", default: 0, null: false
-    t.string   "body",                    null: false
+    t.integer  "answer_type", limit: 4,   default: 0, null: false
+    t.string   "body",        limit: 255,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "games", force: :cascade do |t|
-    t.string   "token"
-    t.string   "status"
+    t.string   "token",              limit: 255
+    t.string   "status",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",                        null: false
-    t.integer  "answered_correctly", default: 0, null: false
+    t.integer  "user_id",            limit: 4,               null: false
+    t.integer  "answered_correctly", limit: 4,   default: 0, null: false
+    t.string   "categories",         limit: 255,             null: false
   end
 
   create_table "games_questions", id: false, force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "question_id"
+    t.integer  "game_id",     limit: 4
+    t.integer  "question_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,24 +42,24 @@ ActiveRecord::Schema.define(version: 20151124004702) do
   add_index "games_questions", ["question_id"], name: "index_games_questions_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
-    t.string   "body",                        null: false
-    t.integer  "question_type", default: 0,   null: false
-    t.integer  "level",         default: 0
-    t.string   "category",      default: "0"
+    t.string   "body",          limit: 255,             null: false
+    t.integer  "question_type", limit: 4,   default: 0, null: false
+    t.integer  "level",         limit: 4,   default: 0
+    t.integer  "category",      limit: 4,   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "token"
+    t.string   "token",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_answers", force: :cascade do |t|
-    t.integer "question_id"
-    t.integer "answer_id"
-    t.boolean "correct",     default: false, null: false
+    t.integer "question_id", limit: 4
+    t.integer "answer_id",   limit: 4
+    t.boolean "correct",               default: false, null: false
   end
 
   add_index "user_answers", ["answer_id"], name: "index_user_answers_on_answer_id", using: :btree

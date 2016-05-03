@@ -4,6 +4,8 @@ class Game < ActiveRecord::Base
   tokenable_by 6
 
   GAME_PASS_THRESHOLD = 10
+  CATEGORIES_SIZE = 5
+  QUESTIONS_IN_CATEGORY = 2
 
   # Associations
   has_and_belongs_to_many :questions, through: :games_questions
@@ -11,15 +13,25 @@ class Game < ActiveRecord::Base
   # Validations
   validates :user_id, presence: true # ever game must belong to a user
 
+  def self.create_new_game(user_id)
+    game = Game.new user_id: user_id
+    game.categories = Question::random_categories(CATEGORIES_SIZE)
+    game.save!
+
+    game
+  end
+
   def ensure_only_one_active_game
     # do stuff to ensure a user have only one active game (place holder for game status implementation)
   end
 
-  def new_question(level)
+  def new_question(category)
     question = loop do
-      qq = Question::random_question(level)
+      qq = Question::random_question(category)
       raise "Could not retrieve a random question. Questions db might be empty!" if qq.nil?
-      break qq unless questions.include? qq  # find a unique question for our game
+
+      # find a unique question for our game
+      break qq unless questions.include? qq || Questions.where(category: category).count == questions.where(category: category).count
     end
 
     questions << question
@@ -46,6 +58,10 @@ class Game < ActiveRecord::Base
   def user_correct?(question_id, answer_ids)
     question, answers = Question.find(question_id), Answer.find(answer_ids)
     question.corrects == answers
+  end
+
+  def games_categories
+    JSON.parse(categories)
   end
 
   def name

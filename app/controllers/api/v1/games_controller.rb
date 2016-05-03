@@ -6,24 +6,18 @@ module Api
       before_action :ensure_question_found!, only: %i(answer)
       before_action :ensure_answer_ids!, only: %i(answer)
       before_action :games_params
+      before_action :ensure_category!, only: %i(new_question)
 
       def get
         @game
       end
 
       def create
-        @game = Game.new user_id: params[:user_id]
-        @game.save!
-
-        @game.ensure_only_one_active_game
+        @game = Game::create_new_game(params[:user_id])
       end
 
       def new_question
-        unless @game.game_ended? 
-          @question = @game.new_question(params[:level] || "easy")
-        else
-          @game_ended = true
-        end
+        @question = @game.new_question(params[:category])
       end
 
       def questions
@@ -58,6 +52,11 @@ module Api
 
       def games_params
         params["game"].permit :user_id
+      end
+
+      def ensure_category!
+        return error(E_INVALID_PARAM, "missing 'category' parameter on request") if params["category"].nil?
+        return error(E_INVALID_PARAM, "this category is not part of this game") unless @game.games_categories.include? params["category"]
       end
     end
   end
