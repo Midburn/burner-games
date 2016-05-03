@@ -1,5 +1,7 @@
 # The Burner Games
 
+> This is the backend repository of the [Midburn Quiz](https://github.com/Midburn/Midburn-Quiz-Frontend/) repo.
+
 Burner games is a simple trivia game developed by the midburn.org organization volunteers as an educational step for the [Midburn organization](http://midburn.org) ticketing system. While playing the game, the participants will be questioned about [Midburn 10 principeles](http://midburn.org/en-ten-principles/) which are the primary guidance of the Midburn Organization.
 
 - **Primary Goal**: Educate the Midburn events participants about the 10 principles, the events' vibe and explain the participants' behavior in a simple, fun & humoristic way.
@@ -80,6 +82,9 @@ Please follow: [api-spec.md document](https://github.com/Midburn/burner-games/bl
 ### Technical Design
 
 Please see the [technical-design.md document](https://github.com/Midburn/burner-games/blob/master/technical-design.md).
+
+### See Also
+- [The frontend repository](https://github.com/Midburn/Midburn-Quiz-Frontend/)
 
 ### LICENSE
 
