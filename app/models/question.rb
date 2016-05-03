@@ -25,7 +25,7 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :answers
 
   def self.random_question(category)
-    Question.where(category: category).sample
+    Question.where(category: Question.categories[category]).sample
   end
 
   def self.random_categories(count)
