@@ -8,7 +8,7 @@
   "token": "t0k3n",          # The game's unique identifier
   "status": null,            # Status of the game: {started, ended, expired}
   "user_id": 22,             # The Midburn profile user id
-  "answered_correctly": 0,   # Questions that were answered correctly during this game
+  "completed": false,        # Boolean indicating if the game was completed
   "questions_count": 0,      # Questions attached to this game
   "questions": []            # Questions array, where each object in the array is the question model
 }
@@ -24,8 +24,8 @@
                                                       The be included while presenting the question.
   "question_type": "text",                        # 3 question types: {"text", "image", "video"}
   "level": "easy",                                # Question's level: {"easy", "very_hard"}
-  "category": null,                               # Category of the question, out of 11 categories.
-                                                      See app/model/question.rb for full list
+  "category_id": 3,                               # Category id of the question, out of 11 categories.
+                                                      See app/model/category.rb for full list
   "answers": []                                   # Possible answers for the question
 }
 ```
@@ -47,273 +47,235 @@ curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --heade
 ```
 
 ##### Response:
-```bash
+```json
 {
   "status": null,
-  "token": "JB1wRZ",
+  "token": "N3JU7i",
   "user_id": 22,
   "answered_correctly": 0,
   "questions_count": 0,
   "categories": [
-    "communal_effort",
-    "radical_self_expression",
-    "inclusion",
-    "gifting",
-    "civic_responsibility"
-  ]
-}
-```
-
-###### Notice that the game's token is `JB1wRZ`, we will need it for all of our future requests
-
-### 2. Get List of Questions
-```bash
-curl -X GET http://localhost:3000/api/v1/games/JB1wRZ/questions -d '{}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
-{
-  "game": {
-    "token": "JB1wRZ",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 0,
-    "categories": [
-      "communal_effort",
-      "radical_self_expression",
-      "inclusion",
-      "gifting",
-      "civic_responsibility"
-    ],
-    "questions": []
-  }
-}
-```
-
-###### Notice game questions list is empty.
-
-### 3. Add Question To Game: "JB1wRZ" with category 'inclusion' (for list of categories see below)
-```bash
-curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/new_question -d '{"category":"inclusion"}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
-{
-  "id": 15,
-  "body": "הוזמנת למסיבה ברנרית מגניבה! ועוד בחינם! אתה...",
-  "question_type": "text",
-  "level": "easy",
-  "category": "other",
-  "answers": [
     {
-      "id": 57,
-      "answer_type": "text",
-      "body": "שמח שסוף סוף יש מסיבה שלא צריך לשלם עליה בכניסה, כי בדיוק סגרת חודשיים אבטלה, והולך אליה בכיסים ריקים ובלב מלא."
+      "name": "communal_effort",
+      "corrects": 0
     },
     {
-      "id": 58,
-      "answer_type": "text",
-      "body": "מביא איתי כסף רק לבירה שאי אקנה (לעצמי) שם, ומשתדל שלא לשאול שאלות קיטבג כמו \"צריך עזרה?\"..."
+      "name": "gifting",
+      "corrects": 0
     },
     {
-      "id": 59,
-      "answer_type": "text",
-      "body": "בא עם כל החבר'ה שלי, עושים שמח ובלגן, ואז מתחפפים לפי שצריך לנקות..."
+      "name": "immediacy",
+      "corrects": 0
     },
     {
-      "id": 60,
-      "answer_type": "text",
-      "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
+      "name": "radical_self_reliance",
+      "corrects": 0
+    },
+    {
+      "name": "radical_self_expression",
+      "corrects": 0
     }
   ]
 }
 ```
 
-### 3.1. Add Question To Game: "JB1wRZ" with the wrong category.
+###### Notice that the game's token is `N3JU7i`, we will need it for all of our future requests
 
-curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/new_question -d '{"category":"decommodification"}' --header "Content-Type:application/json"
+### 2. Get List of Questions
+```bash
+curl -X GET http://localhost:3000/api/v1/games/N3JU7i/questions --header "Content-Type:application/json"
+```
+
+##### Response:
+```json
+{
+  "questions": []
+}
+```
+
+###### Notice: previous versions of the API returned the game model, but that was removed.
+
+### 3. Add Question To Game: "N3JU7i" with category 'communal_effort' (which is part of this game!)
+```bash
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/new_question -d '{"category":"communal_effort"}' --header "Content-Type:application/json"
+```
+
+##### Response:
+```json
+{
+  "id": 2,
+  "body": "אתה מגיע למידברן ופוגש בחד-קרן צבעוני ביותר שמסביר לך על עקרונות העיר, מחלק לך מפה ותוכניה ומכריח אותך להתפלש בחול בצורת מלאך. הוא כמובן שייך למחלקת _________",
+  "question_type": "text",
+  "level": "easy",
+  "category": {
+    "id": 7,
+    "name": "communal_effort"
+  },
+  "answers": [
+    {
+      "id": 5,
+      "answer_type": "text",
+      "body": "דייט"
+    },
+    {
+      "id": 6,
+      "answer_type": "text",
+      "body": "IT"
+    },
+    {
+      "id": 7,
+      "answer_type": "text",
+      "body": "מפ\"צ"
+    },
+    {
+      "id": 8,
+      "answer_type": "text",
+      "body": "גריטרז"
+    }
+  ]
+}
+```
+
+### 3.1. Add Question To Game: "N3JU7i" with the wrong category.
 
 ```bash
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/new_question -d '{"category":"inclusion"}' --header "Content-Type:application/json"
+```
+
+```json
 {
   "status": "error",
   "message": "this category is not part of this game"
 }
 ```
 
-> The following categories exists on the db: 
-> "other", "inclusion", "gifting", "decommodification", "radical_self_reliance", "radical_self_expression", "communal_effort", "civic_responsibility", "leaving_no_trace", "participation", "immediacy". For more, see Question model file.
-
-###### The question model is been sent back on the `new_question` api request.
+> The following categories exists:
+> "other", "inclusion", "gifting", "decommodification", "radical_self_reliance", "radical_self_expression", "communal_effort", "civic_responsibility", "leaving_no_trace", "participation", "immediacy". For more, see Category model file.
 
 ### 4. Listing the Game's questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/JB1wRZ/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/N3JU7i/questions --header "Content-Type:application/json"
 ```
 
 ##### Response:
 
 ```bash
 {
-  "game": {
-    "token": "JB1wRZ",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 1,
-    "categories": [
-      "communal_effort",
-      "radical_self_expression",
-      "inclusion",
-      "gifting",
-      "civic_responsibility"
-    ],
-    "questions": [
-      {
-        "id": 15,
-        "body": "הוזמנת למסיבה ברנרית מגניבה! ועוד בחינם! אתה...",
-        "question_type": "text",
-        "level": "easy",
-        "category": "other",
-        "answers": [
-          {
-            "id": 57,
-            "answer_type": "text",
-            "body": "שמח שסוף סוף יש מסיבה שלא צריך לשלם עליה בכניסה, כי בדיוק סגרת חודשיים אבטלה, והולך אליה בכיסים ריקים ובלב מלא."
-          },
-          {
-            "id": 58,
-            "answer_type": "text",
-            "body": "מביא איתי כסף רק לבירה שאי אקנה (לעצמי) שם, ומשתדל שלא לשאול שאלות קיטבג כמו \"צריך עזרה?\"..."
-          },
-          {
-            "id": 59,
-            "answer_type": "text",
-            "body": "בא עם כל החבר'ה שלי, עושים שמח ובלגן, ואז מתחפפים לפי שצריך לנקות..."
-          },
-          {
-            "id": 60,
-            "answer_type": "text",
-            "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
-          }
-        ]
-      }
-    ]
-  }
+  "questions": [
+    {
+      "id": 2,
+      "body": "אתה מגיע למידברן ופוגש בחד-קרן צבעוני ביותר שמסביר לך על עקרונות העיר, מחלק לך מפה ותוכניה ומכריח אותך להתפלש בחול בצורת מלאך. הוא כמובן שייך למחלקת _________",
+      "question_type": "text",
+      "level": "easy",
+      "category": null,
+      "answers": [
+        {
+          "id": 5,
+          "answer_type": "text",
+          "body": "דייט"
+        },
+        {
+          "id": 6,
+          "answer_type": "text",
+          "body": "IT"
+        },
+        {
+          "id": 7,
+          "answer_type": "text",
+          "body": "מפ\"צ"
+        },
+        {
+          "id": 8,
+          "answer_type": "text",
+          "body": "גריטרז"
+        }
+      ]
+    }
+  ]
 }
 ```
 
 ### 5. Submitting a WRONG Answer For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id": "15", "answer_ids":["57"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "2", "answer_ids":["5"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```bash
+```json
 {
-  "response": "wrong",
+  "response": false,
+  "category_completed": false,
+  "game_completed": false,
   "correct_answers": [
     {
-      "id": 60,
+      "id": 8,
       "answer_type": "text",
-      "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
+      "body": "גריטרז"
     }
   ]
 }
 ```
 
-### 6. Submitting a WRONG Multiple Choice Answer
+### 6. Submitting a CORRECT Answer For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id": "15", "answer_ids":["57,58"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "2", "answer_ids":["8"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```bash
+```json
 {
-  "response": "wrong",
-  "game": {
-    "token": "JB1wRZ",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 1,
-    "categories": [
-      "communal_effort",
-      "radical_self_expression",
-      "inclusion",
-      "gifting",
-      "civic_responsibility"
-    ]
-  }
+  "response": true,
+  "category_completed": false,
+  "game_completed": false
 }
 ```
 
-### 7. Submitting a CORRECT Answer For a Question
+### 7. Submitting a HINT request For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/answer -d '{"question_id": "15", "answer_ids":["60"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/hint -d '{"question_id": "8"}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```bash
-{
-  "response": "correct",
-  "game": {
-    "token": "JB1wRZ",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 2,
-    "questions_count": 1,
-    "categories": [
-      "communal_effort",
-      "radical_self_expression",
-      "inclusion",
-      "gifting",
-      "civic_responsibility"
-    ]
-  }
-}
-```
-
-### 8. Submitting a HINT request For a Question
-```bash
-curl -X POST http://localhost:3000/api/v1/games/JB1wRZ/hint -d '{"question_id": "15"}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
+```json
 {
   "hints": [
     {
-      "id": 60,
+      "id": 32,
       "answer_type": "text",
-      "body": "שואל אם צריך להביא מישהו, או מביא אלכוהול לשתייה של המסיבה, ובכל מקרה נשאר בסוף לעזור לחשלש!"
+      "body": "קורא את כל המסמך (בואנה, זה ממש מעניין כל המידברן הזה)"
     },
     {
-      "id": 57,
+      "id": 29,
       "answer_type": "text",
-      "body": "שמח שסוף סוף יש מסיבה שלא צריך לשלם עליה בכניסה, כי בדיוק סגרת חודשיים אבטלה, והולך אליה בכיסים ריקים ובלב מלא."
+      "body": "יאללה, יאללה, אני גבר גבר, לוקח המון בירה (כי זו מסיבה) ויוצא"
     }
   ]
 }
 ```
 
-### 9. Submitting a CORRECT Multiple Choice Answer
+### 8. Answering a question correctly & user finished category
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152,153"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "8", "answer_ids":["32"]}' --header "Content-Type:application/json"
 ```
 
-##### Response:
-```bash
+```json
 {
-  "response": "correct",
-  "game": {
-    "token": "xfu6Zy",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 1,
-    "questions_count": 1
-  }
+  "response": true,
+  "category_completed": true,
+  "game_completed": false
 }
 ```
+
+### 8. Answering a question correctly & user finish **ALL** categories 
+```bash
+curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "8", "answer_ids":["32"]}' --header "Content-Type:application/json"
+```
+
+```json
+{
+  "response": true,
+  "category_completed": true,
+  "game_completed": true
+}
+```
+
