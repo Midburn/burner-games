@@ -47,16 +47,18 @@ This application is developed as part of the Midburn platform, therefore it was 
 
 If you're still want to run the service locally, follow the following configs:
 
-- Ruby: `ruby-2.1.7`
-- System dependencies: `MySQL`
+- Ruby: `ruby-2.3.1`
+- System dependencies: `MySQL` / `Postgres`
 - Environment configuration: See `.env-example` file for local environment configuration
 - Database creation: See `config/database.yml` for additional info.
 - Database initialization: run `bin/rake midburn:seed_data`
 - How to run the test suite: `bin/rspec`
 > Side note: Since this project is intended to be developed over a weekend hackathon, tests are currently not supported
 
-- Services: `heroku`. Please contact `@elad_g` for credentials.
+- Services: `heroku`. Please contact `@elad_g` for credentials / guidance.
+
 - Deployment instructions: `git push heroku master`
+> **IMPORTANT NOTICE:** For clean databases, Category table is empty. You will have to manually run `Category::initialize_categories` from the server's console in order to seed the data. To initialize questions on the database, update the `lib/questions_db.csv` file with proper data, and run `rake midburn:seed_data` script.
 
 ##### Technical Guidance
 
