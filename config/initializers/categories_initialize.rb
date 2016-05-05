@@ -1,1 +1,0 @@
-Category::initialize_categories if ENV["INITIALIZE_CATEGORY"]
