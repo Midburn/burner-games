@@ -33,7 +33,8 @@ class Game < ActiveRecord::Base
     # choose the next question for the user
     # if question is new in game or if there are no other questions in specified category
     question = loop do 
-      qq = Question.where(category: category).sample      
+      qq = Question.where(category: category).sample
+      raise "Could not find any question with category: #{category.name}" if qq.nil?
       break qq if (questions.exclude? qq) || (Question.where(category: category).count <= questions.where(category: category).count)
     end
 
