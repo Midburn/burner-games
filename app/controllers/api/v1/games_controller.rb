@@ -28,6 +28,7 @@ module Api
         @question = Question.find(params[:question_id])
         @success = @game.user_answered(params[:question_id], params[:answer_ids])
         @category_completed = @game.categories_game.find_by(category: @question.category).completed?
+        @game_completed = @game.completed?
       end
 
       def hint

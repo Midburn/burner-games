@@ -54,8 +54,12 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def game_ended?
-    answered_correctly > GAME_PASS_THRESHOLD
+  def completed?
+    categories_game.each do |cg|
+      return false if cg.completed? == false
+    end
+
+    true
   end
 
   def questions_count
