@@ -5,7 +5,7 @@ class CategoriesGame < ActiveRecord::Base
   CATEGORY_COMPLETED = 2
 
   def completed?
-    corrects > CATEGORY_COMPLETED
+    corrects >= CATEGORY_COMPLETED
   end
 
   def name
