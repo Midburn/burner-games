@@ -2,14 +2,12 @@ class Question < ActiveRecord::Base
 
   # enums
   enum question_type: [ :text, :image, :video ]
-  enum category:  [ :other, :inclusion, :gifting, :decommodification, :radical_self_reliance,
-                    :radical_self_expression, :communal_effort, :civic_responsibility,
-                    :leaving_no_trace, :participation, :immediacy ]
   enum level: { easy: 0, very_hard: 100 }
 
   # associations
   has_many :user_answers, dependent: :destroy
   has_many :answers, through: :user_answers, dependent: :destroy
+  belongs_to :category
   has_and_belongs_to_many :games, through: :games_questions
 
   # validations
@@ -23,23 +21,6 @@ class Question < ActiveRecord::Base
 
   # nested attributes
   accepts_nested_attributes_for :answers
-
-  def self.random_question(category)
-    question = Question.where(category: Question.categories[category]).sample
-    raise "Could not retrieve a random question. Questions db might be empty!" if question.nil?
-    
-    question
-  end
-
-  def self.random_categories(count)
-    random_categories = []
-    loop do
-      category = Question.categories.keys.sample
-      random_categories << category unless random_categories.include? category
-      break if random_categories.count >= count
-    end
-    random_categories
-  end
 
   def corrects
     user_answers.where(correct: true).collect { |a| a.answer }

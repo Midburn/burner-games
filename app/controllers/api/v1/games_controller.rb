@@ -17,7 +17,7 @@ module Api
       end
 
       def new_question
-        @question = @game.new_question(params[:category])
+        @question = @game.new_question(@category)
       end
 
       def questions
@@ -27,6 +27,7 @@ module Api
       def answer
         @question = Question.find(params[:question_id])
         @success = @game.user_answered(params[:question_id], params[:answer_ids])
+        @category_completed = @game.categories_game.find_by(category: @question.category).completed?
       end
 
       def hint
@@ -62,7 +63,10 @@ module Api
 
       def ensure_category!
         return error(E_INVALID_PARAM, "missing 'category' parameter on request") if params["category"].nil?
-        return error(E_INVALID_PARAM, "this category is not part of this game") unless @game.games_categories.include? params["category"]
+        
+        @category = Category.find_by_name(params["category"])
+        return error(E_RESOURCE_NOT_FOUND, "the given category does not exist") if @category.nil?
+        return error(E_INVALID_PARAM, "this category is not part of this game") unless @game.categories.include? @category
       end
     end
   end
