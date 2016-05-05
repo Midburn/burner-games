@@ -1,7 +1,6 @@
 RSpec.shared_examples "api unauthorized" do
   context "When not authorized" do
     before do
-      binding.pry
       action
     end
 
