@@ -10,6 +10,6 @@ class CreateCategories < ActiveRecord::Migration
       t.integer    :corrects, default: 0
     end
 
-    # remove_column :games, :categories
+    remove_column :games, :categories, :string
   end
 end
