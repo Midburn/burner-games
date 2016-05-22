@@ -19,10 +19,12 @@ module Api
       end
 
       def error(code = 500, message = "Internal api error")
+        Rails.logger.error "\n>> API Error: code: #{code}, message: #{message}\n"
+
         render json: {
           status: "error",
           message: message
-        }, status: 500
+        }, status: code
       end
 
       rescue_from Exception do |e|
