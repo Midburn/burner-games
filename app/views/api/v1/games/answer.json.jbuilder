@@ -1,5 +1,5 @@
 json.response @success
-json.category_completed @category_completed
+json.category_completed @categoryGame.completed?
 json.game_completed @game_completed
 
 unless @success

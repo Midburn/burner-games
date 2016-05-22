@@ -14,7 +14,7 @@ class Category < ActiveRecord::Base
     Category.find_or_create_by(name: "civic_responsibility")
     Category.find_or_create_by(name: "leaving_no_trace")
     Category.find_or_create_by(name: "participation")
-    Category.find_or_create_by(name: "immediacy")    
+    Category.find_or_create_by(name: "immediacy")
   end
 
   def self.random
