@@ -33,7 +33,7 @@ module Api
 
       def hint
         question = Question.find(params[:question_id])
-        @hints = [question.corrects.sample, question.falses.sample].shuffle
+        @hints = question.falses.shuffle[0..1]
       end
 
       def update
