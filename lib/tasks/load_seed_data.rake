@@ -1,30 +1,39 @@
 namespace :midburn do
 
   desc "Load seed data from lib/questions_db.csv"
-  task :seed_data => :environment do
+  task :seed_data_from_file => :environment do
+
+    # clean the db
+    Question.destroy_all
+    Answer.destroy_all
+    Category.destroy_all
 
     # create categories
+    Category.find_or_create_by(name: "leave_no_trace")
+    Category.find_or_create_by(name: "media_rules")
+    Category.find_or_create_by(name: "safe_zone")
+    Category.find_or_create_by(name: "principles")
+    Category.find_or_create_by(name: "survival_guide")
     Category.find_or_create_by(name: "other")
-    Category.find_or_create_by(name: "inclusion")
-    Category.find_or_create_by(name: "gifting")
-    Category.find_or_create_by(name: "decommodification")
-    Category.find_or_create_by(name: "radical_self_reliance")
-    Category.find_or_create_by(name: "radical_self_expression")
-    Category.find_or_create_by(name: "communal_effort")
-    Category.find_or_create_by(name: "civic_responsibility")
-    Category.find_or_create_by(name: "leaving_no_trace")
-    Category.find_or_create_by(name: "participation")
-    Category.find_or_create_by(name: "immediacy")    
+
+    categories_keys = {
+      "1" => Category.find_by_name("leave_no_trace"),
+      "2" => Category.find_by_name("media_rules"),
+      "3" => Category.find_by_name("safe_zone"),
+      "4" => Category.find_by_name("principles"),
+      "5" => Category.find_by_name("survival_guide"),
+      "6" => Category.find_by_name("other")
+    }
 
     # load questions csv
     csv = CSV.new(File.open(Rails.root.join('lib', 'questions_db.csv')))
     text = File.open(Rails.root.join('lib', 'questions_db.csv')).read
-    keys = ["number", "auther", "topic", "question", "answer"]
+    keys = ["number", "composer", "category-number", "unknown", "question", "unknown-2", "answer"]
     array = CSV.parse(text).map { |a| Hash[keys.zip(a)] }
 
     array.each_with_index do |line, index|
       if line["number"] != nil
-        question = Question.new(body: line["question"], question_type: "text", category: Category::random)
+        question = Question.new(body: line["question"], question_type: "text", category: categories_keys[line["category-number"]] || Category.find_by_name("other"))
       else
         question = Question.last
       end
