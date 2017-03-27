@@ -8,7 +8,7 @@
   "token": "t0k3n",          # The game's unique identifier
   "status": null,            # Status of the game: {started, ended, expired}
   "user_id": 22,             # The Midburn profile user id
-  "completed": false,        # Boolean indicating if the game was completed
+  "answered_correctly": 0,   # Questions that were answered correctly during this game
   "questions_count": 0,      # Questions attached to this game
   "questions": []            # Questions array, where each object in the array is the question model
 }
@@ -24,8 +24,8 @@
                                                       The be included while presenting the question.
   "question_type": "text",                        # 3 question types: {"text", "image", "video"}
   "level": "easy",                                # Question's level: {"easy", "very_hard"}
-  "category_id": 3,                               # Category id of the question, out of 11 categories.
-                                                      See app/model/category.rb for full list
+  "category": null,                               # Category of the question, out of 11 categories.
+                                                      See app/model/question.rb for full list
   "answers": []                                   # Possible answers for the question
 }
 ```
@@ -43,239 +43,205 @@
 
 ### 1. Start a new game
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
+curl -X POST http://burner-games.herokuapp.com/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```json
+```bash
 {
   "status": null,
-  "token": "N3JU7i",
+  "token": "xfu6Zy",
   "user_id": 22,
   "answered_correctly": 0,
-  "questions_count": 0,
-  "categories": [
-    {
-      "name": "communal_effort",
-      "corrects": 0
-    },
-    {
-      "name": "gifting",
-      "corrects": 0
-    },
-    {
-      "name": "immediacy",
-      "corrects": 0
-    },
-    {
-      "name": "radical_self_reliance",
-      "corrects": 0
-    },
-    {
-      "name": "radical_self_expression",
-      "corrects": 0
-    }
-  ]
+  "questions_count": 0
 }
 ```
 
-###### Notice that the game's token is `N3JU7i`, we will need it for all of our future requests
+###### Notice that the game's token is `xfu6Zy`, we will need it for all of our future requests
 
 ### 2. Get List of Questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/N3JU7i/questions --header "Content-Type:application/json"
+curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```json
+```bash
 {
-  "questions": []
+  "game": {
+    "token": "xfu6Zy",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 0,
+    "questions_count": 0,
+    "questions": []
+  }
 }
 ```
 
-###### Notice: previous versions of the API returned the game model, but that was removed.
+###### Notice game questions list is empty.
 
-### 3. Add Question To Game: "N3JU7i" with category 'communal_effort' (which is part of this game!)
+### 3. Add Question To Game: "xfu6Zy"
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/new_question -d '{"category":"communal_effort"}' --header "Content-Type:application/json"
+curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/new_question -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```json
+```bash
 {
-  "id": 2,
-  "body": "אתה מגיע למידברן ופוגש בחד-קרן צבעוני ביותר שמסביר לך על עקרונות העיר, מחלק לך מפה ותוכניה ומכריח אותך להתפלש בחול בצורת מלאך. הוא כמובן שייך למחלקת _________",
+  "id": 38,
+  "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
   "question_type": "text",
   "level": "easy",
-  "category": {
-    "id": 7,
-    "name": "communal_effort"
-  },
+  "category": null,
   "answers": [
     {
-      "id": 5,
+      "id": 149,
       "answer_type": "text",
-      "body": "דייט"
+      "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
     },
     {
-      "id": 6,
+      "id": 150,
       "answer_type": "text",
-      "body": "IT"
+      "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
     },
     {
-      "id": 7,
+      "id": 151,
       "answer_type": "text",
-      "body": "מפ\"צ"
+      "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
     },
     {
-      "id": 8,
+      "id": 152,
       "answer_type": "text",
-      "body": "גריטרז"
+      "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
     }
   ]
 }
 ```
 
-### 3.1. Add Question To Game: "N3JU7i" with the wrong category.
-
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/new_question -d '{"category":"inclusion"}' --header "Content-Type:application/json"
-```
-
-```json
-{
-  "status": "error",
-  "message": "this category is not part of this game"
-}
-```
-
-> The following categories exists:
-> "other", "inclusion", "gifting", "decommodification", "radical_self_reliance", "radical_self_expression", "communal_effort", "civic_responsibility", "leaving_no_trace", "participation", "immediacy". For more, see Category model file.
+###### The question model is been sent back on the `new_question` api request.
 
 ### 4. Listing the Game's questions
 ```bash
-curl -X GET http://localhost:3000/api/v1/games/N3JU7i/questions --header "Content-Type:application/json"
+curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
 
 ```bash
 {
-  "questions": [
-    {
-      "id": 2,
-      "body": "אתה מגיע למידברן ופוגש בחד-קרן צבעוני ביותר שמסביר לך על עקרונות העיר, מחלק לך מפה ותוכניה ומכריח אותך להתפלש בחול בצורת מלאך. הוא כמובן שייך למחלקת _________",
-      "question_type": "text",
-      "level": "easy",
-      "category": null,
-      "answers": [
-        {
-          "id": 5,
-          "answer_type": "text",
-          "body": "דייט"
-        },
-        {
-          "id": 6,
-          "answer_type": "text",
-          "body": "IT"
-        },
-        {
-          "id": 7,
-          "answer_type": "text",
-          "body": "מפ\"צ"
-        },
-        {
-          "id": 8,
-          "answer_type": "text",
-          "body": "גריטרז"
-        }
-      ]
-    }
-  ]
+  "game": {
+    "token": "xfu6Zy",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 0,
+    "questions_count": 1,
+    "questions": [
+      {
+        "id": 38,
+        "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
+        "question_type": "text",
+        "level": "easy",
+        "category": null,
+        "answers": [
+          {
+            "id": 149,
+            "answer_type": "text",
+            "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
+          },
+          {
+            "id": 150,
+            "answer_type": "text",
+            "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
+          },
+          {
+            "id": 151,
+            "answer_type": "text",
+            "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
+          },
+          {
+            "id": 152,
+            "answer_type": "text",
+            "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
 ### 5. Submitting a WRONG Answer For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "2", "answer_ids":["5"]}' --header "Content-Type:application/json"
+curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["151"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```json
+```bash
 {
-  "response": false,
-  "category_completed": false,
-  "game_completed": false,
-  "correct_answers": [
-    {
-      "id": 8,
-      "answer_type": "text",
-      "body": "גריטרז"
-    }
-  ]
+  "response": "wrong",
+  "game": {
+    "token": "xfu6Zy",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 0,
+    "questions_count": 1
+  }
 }
 ```
 
-### 6. Submitting a CORRECT Answer For a Question
+### 6. Submitting a WRONG Multiple Choice Answer
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "2", "answer_ids":["8"]}' --header "Content-Type:application/json"
+curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["151,152"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```json
+```bash
 {
-  "response": true,
-  "category_completed": false,
-  "game_completed": false
+  "response": "wrong",
+  "game": {
+    "token": "xfu6Zy",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 0,
+    "questions_count": 1
+  }
 }
 ```
 
-### 7. Submitting a HINT request For a Question
+### 7. Submitting a CORRECT Answer For a Question
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/hint -d '{"question_id": "8"}' --header "Content-Type:application/json"
+curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
-```json
-{
-  "hints": [
-    {
-      "id": 32,
-      "answer_type": "text",
-      "body": "קורא את כל המסמך (בואנה, זה ממש מעניין כל המידברן הזה)"
-    },
-    {
-      "id": 29,
-      "answer_type": "text",
-      "body": "יאללה, יאללה, אני גבר גבר, לוקח המון בירה (כי זו מסיבה) ויוצא"
-    }
-  ]
-}
-```
-
-### 8. Answering a question correctly & user finished category
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "8", "answer_ids":["32"]}' --header "Content-Type:application/json"
-```
-
-```json
 {
-  "response": true,
-  "category_completed": true,
-  "game_completed": false
+  "response": "correct",
+  "game": {
+    "token": "xfu6Zy",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 1,
+    "questions_count": 1
+  }
 }
 ```
 
-### 8. Answering a question correctly & user finish **ALL** categories 
+### 8. Submitting a CORRECT Multiple Choice Answer
 ```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "8", "answer_ids":["32"]}' --header "Content-Type:application/json"
+curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152,153"]}' --header "Content-Type:application/json"
 ```
 
-```json
+##### Response:
+```bash
 {
-  "response": true,
-  "category_completed": true,
-  "game_completed": true
+  "response": "correct",
+  "game": {
+    "token": "xfu6Zy",
+    "status": null,
+    "user_id": 22,
+    "answered_correctly": 1,
+    "questions_count": 1
+  }
 }
 ```
-
