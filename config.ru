@@ -6,11 +6,9 @@ run Rails.application
 require 'rack/cors'
 use Rack::Cors do
 
-  # allow all origins in development
-  allow do
-    origins '*'
-    resource '*', 
-        :headers => :any, 
-        :methods => [:get, :post, :options]
+# allow all origins in development
+allow do
+  origins '*'
+  resource '*', :headers => :any, :methods => [:get, :post, :options]
   end
 end
