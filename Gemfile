@@ -20,7 +20,6 @@ end
 
 group :development, :test do
   gem "webmock"                   # WebMock allows stubbing HTTP requests and setting expectations on HTTP requests
-  gem 'spring'                    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "database_cleaner"          # Strategies for cleaning databases
   # gem "rspec"                   # DISABLED FOR NOW: will be added later
   # gem 'rspec-rails', '~> 3.0'   # DISABLED FOR NOW: will be added later
