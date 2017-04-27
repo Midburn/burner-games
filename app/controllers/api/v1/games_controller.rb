@@ -16,10 +16,6 @@ module Api
         @game = Game::create_new_game(params[:user_id])
       end
 
-      def new_question
-        @question = @game.new_question(@category)
-      end
-
       def questions
         @questions = @game.questions
       end
@@ -28,6 +24,7 @@ module Api
         @question = Question.find(params[:question_id])
         @success = @game.user_answered(params[:question_id], params[:answer_ids])
         @categoryGame = @game.categories_game.find_by(category: @question.category)
+
         @game_completed = @game.completed?
       end
 

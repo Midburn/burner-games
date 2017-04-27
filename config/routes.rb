@@ -15,7 +15,6 @@ Rails.application.routes.draw do
       post "/games/new",                 to: "games#create"
       get  "/games/:token",              to: "games#get"
       get  "/games/:token/questions",    to: "games#questions"
-      post "/games/:token/new_question", to: "games#new_question"
       post "/games/:token/answer",       to: "games#answer"
       post "/games/:token/hint",         to: "games#hint"
     end

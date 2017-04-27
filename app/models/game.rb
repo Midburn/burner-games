@@ -3,9 +3,8 @@ class Game < ActiveRecord::Base
   include Tokenable
   tokenable_by 6
 
-  GAME_PASS_THRESHOLD   = 10
-  CATEGORIES_IN_GAME    = 5
-  QUESTIONS_IN_CATEGORY = 2
+  CATEGORIES_IN_GAME    = ENV["CATEGORIES_IN_GAME"].to_i
+  QUESTIONS_IN_CATEGORY = ENV["QUESTIONS_IN_CATEGORY"].to_i
 
   # Associations
   has_and_belongs_to_many :questions, through: :games_questions
@@ -17,19 +16,22 @@ class Game < ActiveRecord::Base
 
   def self.create_new_game(user_id)
     game = Game.new user_id: user_id
-    loop do 
-      category = Category::random
-      game.categories << category unless game.categories.include? category
 
-      break if game.categories.size >= CATEGORIES_IN_GAME
+    # set categories
+    game.categories << Category.first(Game::CATEGORIES_IN_GAME)
+
+    # load questions into the game
+    game.categories.each do |category|
+      Game::QUESTIONS_IN_CATEGORY.times do
+        game.add_question(category)
+      end
     end
-    game.save!
 
+    game.save!
     game
   end
 
-  def new_question(category)
-    
+  def add_question(category)
     # choose the next question for the user
     # if question is new in game or if there are no other questions in specified category
     question = loop do 
@@ -46,7 +48,7 @@ class Game < ActiveRecord::Base
 
   def user_answered(question_id, answer_ids)
     if user_correct?(question_id, answer_ids)
-      category = Question.find(question_id).category      
+      category = Question.find(question_id).category
       categories_game.find_by(category: category).answered_correctly
 
       true
