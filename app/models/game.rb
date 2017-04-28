@@ -3,8 +3,8 @@ class Game < ActiveRecord::Base
   include Tokenable
   tokenable_by 6
 
-  CATEGORIES_IN_GAME    = ENV["CATEGORIES_IN_GAME"].to_i || 5
-  QUESTIONS_IN_CATEGORY = ENV["QUESTIONS_IN_CATEGORY"].to_i || 6
+  CATEGORIES_IN_GAME    = ENV["CATEGORIES_IN_GAME"].present? ? ENV["CATEGORIES_IN_GAME"].to_i : 5
+  QUESTIONS_IN_CATEGORY = ENV["QUESTIONS_IN_CATEGORY"].present? ? ENV["QUESTIONS_IN_CATEGORY"].to_i : 6
 
   # Associations
   has_and_belongs_to_many :questions, through: :games_questions
