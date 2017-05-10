@@ -75,6 +75,8 @@ GEM
       tilt
     hashdiff (0.3.4)
     hike (1.2.3)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -100,6 +102,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     mysql2 (0.3.21)
     nested_form (0.3.2)
     nokogiri (1.7.2)
@@ -219,6 +222,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   fuubar
+  httparty
   jbuilder (~> 2.0)
   mysql2 (~> 0.3.18)
   pg

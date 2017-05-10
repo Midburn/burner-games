@@ -14,6 +14,9 @@ gem 'rack-cors', :require => 'rack/cors' # Rack CORS Middleware
 # managment system
 gem 'rails_admin', '~> 0.7.0'     # Backoffice Rails data administration system
 
+# rest api calls
+gem 'httparty'
+
 group :doc do
   gem 'sdoc', '~> 0.4.0'          # bundle exec rake doc:rails generates the API under doc/api.
 end

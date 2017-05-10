@@ -2,7 +2,7 @@ module Api
   module V1
     class GamesController < BaseApiController
       before_action :ensure_user_id!, only: %i(create)
-      before_action :ensure_game_found!, only: %i(get update new_question answer questions hint)
+      before_action :ensure_game_found!, only: %i(get update new_question answer questions hint completed)
       before_action :ensure_question_found!, only: %i(answer hint)
       before_action :ensure_answer_ids!, only: %i(answer)
       before_action :games_params
@@ -38,6 +38,12 @@ module Api
 
       def update
         @game
+      end
+
+      def completed
+        @success = @game.drupal_mark_completed!
+      rescue
+        error(E_INTERNAL, "Sorry, could not update Drupal at this time")
       end
 
       private
