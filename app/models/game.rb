@@ -17,7 +17,7 @@ class Game < ActiveRecord::Base
 
   def self.create_new_game(user_id)
     game = Game.new user_id: user_id
-    game.categories << Category.first(Game::CATEGORIES_IN_GAME)
+    game.categories << Category.first(Game::CATEGORIES_IN_GAME).reverse
     game.save!
 
     game
