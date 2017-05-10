@@ -17,12 +17,7 @@ class Game < ActiveRecord::Base
 
   def self.create_new_game(user_id)
     game = Game.new user_id: user_id
-    loop do 
-      category = Category::random
-      game.categories << category unless game.categories.include? category
-
-      break if game.categories.size >= CATEGORIES_IN_GAME
-    end
+    game.categories << Category.first(Game::CATEGORIES_IN_GAME)
     game.save!
 
     game
