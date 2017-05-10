@@ -4,10 +4,12 @@ ruby "2.4.1"
 
 gem 'rails'                       # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails-api'                   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'sass-rails', '~> 4.0.3'      # Use SCSS for stylesheets
+gem 'uglifier', '>= 1.3.0'        # Use Uglifier as compressor for JavaScript assets
+gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'mysql2', '~> 0.3.18'
 
 gem 'rack-cors', :require => 'rack/cors' # Rack CORS Middleware
-gem 'puma'
 
 # managment system
 gem 'rails_admin', '~> 0.7.0'     # Backoffice Rails data administration system
