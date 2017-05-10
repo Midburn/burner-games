@@ -28,7 +28,7 @@ namespace :midburn do
     # load questions csv
     csv = CSV.new(File.open(Rails.root.join('lib', 'questions_db.csv')))
     text = File.open(Rails.root.join('lib', 'questions_db.csv')).read
-    keys = ["number", "composer", "category-number", "unknown", "question", "unknown-2", "answer"]
+    keys = ["number", "composer", "category-number", "question", "unknown", "unknown-2", "answer"]
     array = CSV.parse(text).map { |a| Hash[keys.zip(a)] }
 
     array.each_with_index do |line, index|
