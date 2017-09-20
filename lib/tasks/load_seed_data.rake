@@ -9,26 +9,26 @@ namespace :midburn do
     Category.destroy_all
 
     # create categories
-    Category.find_or_create_by(name: "leave_no_trace")
-    Category.find_or_create_by(name: "media_rules")
-    Category.find_or_create_by(name: "safe_zone")
-    Category.find_or_create_by(name: "principles")
     Category.find_or_create_by(name: "survival_guide")
+    Category.find_or_create_by(name: "principles")
+    Category.find_or_create_by(name: "orientation")
+    Category.find_or_create_by(name: "leave_no_trace")
+    Category.find_or_create_by(name: "safe_zone")
     Category.find_or_create_by(name: "other")
 
     categories_keys = {
-      "1" => Category.find_by_name("leave_no_trace"),
-      "2" => Category.find_by_name("media_rules"),
-      "3" => Category.find_by_name("safe_zone"),
-      "4" => Category.find_by_name("principles"),
-      "5" => Category.find_by_name("survival_guide"),
+      "1" => Category.find_by_name("survival_guide"),
+      "2" => Category.find_by_name("principles"),
+      "3" => Category.find_by_name("orientation"),
+      "4" => Category.find_by_name("leave_no_trace"),
+      "5" => Category.find_by_name("safe_zone"),
       "6" => Category.find_by_name("other")
     }
 
     # load questions csv
     csv = CSV.new(File.open(Rails.root.join('lib', 'questions_db.csv')))
     text = File.open(Rails.root.join('lib', 'questions_db.csv')).read
-    keys = ["number", "composer", "category-number", "unknown", "question", "unknown-2", "answer"]
+    keys = ["number", "composer", "category-number", "question", "unknown", "unknown-2", "answer"]
     array = CSV.parse(text).map { |a| Hash[keys.zip(a)] }
 
     array.each_with_index do |line, index|

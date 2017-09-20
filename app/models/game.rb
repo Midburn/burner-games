@@ -85,4 +85,39 @@ class Game < ActiveRecord::Base
   def name
     "Game ##{token}"
   end
+
+  def drupal_login
+    url = "#{ENV["DRUPAL_API_BASE"]}/user/login"
+    options = {
+      headers: {
+         "cache-control": "no-cache",
+         "content-type": "application/x-www-form-urlencoded",
+      },
+      body: {
+        username: ENV["DRUPAL_ADMIN_USERNAME"],
+        password: ENV["DRUPAL_ADMIN_PASSWORD"],
+      }
+    }
+
+    # preform the request
+    response = HTTParty.post(url, options)
+
+    response["sessid"]
+  end
+
+  def drupal_mark_completed!
+    # ugly patch to support games api for v1 release
+    session_id = drupal_login
+
+    url = "#{ENV["DRUPAL_API_BASE"]}/games/#{user_id}/pass"
+    options =  { 
+      "cache-control": "no-cache",
+      "content-type": "application/x-www-form-urlencoded",
+      "x-csrf-token": session_id, 
+    }
+
+    response = HTTParty.post(url, options)
+
+    response.include? true
+  end
 end
