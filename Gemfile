@@ -8,6 +8,7 @@ gem "pg"
 gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'rack-cors', :require => 'rack/cors' # Rack CORS Middleware
+gem 'puma'
 
 # managment system
 gem 'rails_admin', '~> 1.2'     # Backoffice Rails data administration system
