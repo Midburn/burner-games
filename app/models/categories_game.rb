@@ -1,4 +1,4 @@
-class CategoriesGame < ActiveRecord::Base
+class CategoriesGame < ApplicationRecord
   belongs_to :game
   belongs_to :category
   

@@ -1,9 +1,9 @@
 module Api
   module V1
-    class Api::V1::BaseApiController < ActionController::Base
+    class Api::V1::BaseApiController < ApplicationController
       # respond_to :json, except: %i()
       before_action :validate_json, unless: -> { request.get? }
-      before_filter :default_format_json
+      before_action :default_format_json
       ActionController::Parameters.action_on_unpermitted_parameters = :raise
       protect_from_forgery
 

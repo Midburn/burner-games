@@ -1,4 +1,4 @@
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   has_many :questions
   has_many :games, through: :categories_game
   has_many :categories_games

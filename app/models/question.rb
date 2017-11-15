@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
 
   # enums
   enum question_type: [ :text, :image, :video ]

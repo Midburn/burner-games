@@ -2,17 +2,15 @@ source 'https://rubygems.org'
 
 ruby "2.4.2"
 
-gem 'rails'                       # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails-api'                   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'sass-rails', '~> 4.0.3'      # Use SCSS for stylesheets
-gem 'uglifier', '>= 1.3.0'        # Use Uglifier as compressor for JavaScript assets
-gem 'jbuilder', '~> 2.0'          # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'mysql2', '~> 0.3.18'
+gem 'rails', '~> 5.1.4'           # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'jbuilder'
+gem "pg"
+gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'rack-cors', :require => 'rack/cors' # Rack CORS Middleware
 
 # managment system
-gem 'rails_admin', '~> 0.7.0'     # Backoffice Rails data administration system
+gem 'rails_admin', '~> 1.2'     # Backoffice Rails data administration system
 
 # rest api calls
 gem 'httparty'
@@ -24,20 +22,12 @@ end
 group :development, :test do
   gem "webmock"                   # WebMock allows stubbing HTTP requests and setting expectations on HTTP requests
   gem "database_cleaner"          # Strategies for cleaning databases
-  # gem "rspec"                   # DISABLED FOR NOW: will be added later
-  # gem 'rspec-rails', '~> 3.0'   # DISABLED FOR NOW: will be added later
-  gem "factory_girl_rails"        # Create factories
-  gem "fuubar"                    # The instafailing RSpec progress bar formatter
-  # gem "guard"                   # DISABLED FOR NOW: Guard is a command line tool to easily handle events on file system modifications.
-  # gem "guard-rspec"             # DISABLED FOR NOW: Guard::RSpec automatically run your specs (much like autotest).
   gem "pry"
   gem "pry-doc"
   gem 'pry-rails'
   gem 'pry-stack_explorer'
-  gem 'dotenv-rails'
 end
 
 group :production, :staging do
   gem 'rails_12factor'
-  gem "pg"
 end

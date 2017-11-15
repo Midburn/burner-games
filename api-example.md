@@ -43,32 +43,32 @@
 
 ### 1. Start a new game
 ```bash
-curl -X POST http://burner-games.herokuapp.com/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
 ```bash
 {
   "status": null,
-  "token": "xfu6Zy",
+  "token": "HZei7c",
   "user_id": 22,
   "answered_correctly": 0,
   "questions_count": 0
 }
 ```
 
-###### Notice that the game's token is `xfu6Zy`, we will need it for all of our future requests
+###### Notice that the game's token is `HZei7c`, we will need it for all of our future requests
 
 ### 2. Get List of Questions
 ```bash
-curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/HZei7c/questions -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
 ```bash
 {
   "game": {
-    "token": "xfu6Zy",
+    "token": "HZei7c",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
@@ -80,9 +80,9 @@ curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '
 
 ###### Notice game questions list is empty.
 
-### 3. Add Question To Game: "xfu6Zy"
+### 3. Add Question To Game: "HZei7c"
 ```bash
-curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/new_question -d '{}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/HZei7c/new_question -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -122,7 +122,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/new_question 
 
 ### 4. Listing the Game's questions
 ```bash
-curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '{}' --header "Content-Type:application/json"
+curl -X GET http://localhost:3000/api/v1/games/HZei7c/questions -d '{}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -130,7 +130,7 @@ curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '
 ```bash
 {
   "game": {
-    "token": "xfu6Zy",
+    "token": "HZei7c",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
@@ -172,7 +172,7 @@ curl -X GET http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/questions -d '
 
 ### 5. Submitting a WRONG Answer For a Question
 ```bash
-curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["151"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["151"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -180,7 +180,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 {
   "response": "wrong",
   "game": {
-    "token": "xfu6Zy",
+    "token": "HZei7c",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
@@ -191,7 +191,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 
 ### 6. Submitting a WRONG Multiple Choice Answer
 ```bash
-curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["151,152"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["151,152"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -199,7 +199,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 {
   "response": "wrong",
   "game": {
-    "token": "xfu6Zy",
+    "token": "HZei7c",
     "status": null,
     "user_id": 22,
     "answered_correctly": 0,
@@ -210,7 +210,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 
 ### 7. Submitting a CORRECT Answer For a Question
 ```bash
-curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["152"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -218,7 +218,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 {
   "response": "correct",
   "game": {
-    "token": "xfu6Zy",
+    "token": "HZei7c",
     "status": null,
     "user_id": 22,
     "answered_correctly": 1,
@@ -229,7 +229,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 
 ### 8. Submitting a CORRECT Multiple Choice Answer
 ```bash
-curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"question_id": "38", "answer_ids":["152,153"]}' --header "Content-Type:application/json"
+curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["152,153"]}' --header "Content-Type:application/json"
 ```
 
 ##### Response:
@@ -237,7 +237,7 @@ curl -X POST http://burner-games.herokuapp.com/api/v1/games/xfu6Zy/answer -d '{"
 {
   "response": "correct",
   "game": {
-    "token": "xfu6Zy",
+    "token": "HZei7c",
     "status": null,
     "user_id": 22,
     "answered_correctly": 1,

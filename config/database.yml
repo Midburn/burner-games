@@ -13,7 +13,7 @@ development:
   adapter: postgresql
   encoding: utf8
   database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USER"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
   port: <%= ENV["DATABASE_POST"] %>
@@ -22,7 +22,7 @@ production:
   adapter: postgresql
   encoding: utf8
   database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USER"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
   port: <%= ENV["DATABASE_POST"] %>
@@ -31,7 +31,7 @@ test:
   adapter: postgresql
   encoding: utf8
   database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USER"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
   port: <%= ENV["DATABASE_POST"] %>

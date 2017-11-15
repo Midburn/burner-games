@@ -10,14 +10,20 @@ module Api
 
       def get
         @game
+
+        render :get
       end
 
       def create
         @game = Game::create_new_game(params[:user_id])
+
+        render :create
       end
 
       def questions
         @questions = @game.questions
+
+        render :questions
       end
 
       def answer
@@ -26,21 +32,29 @@ module Api
         @categoryGame = @game.categories_game.find_by(category: @question.category)
 
         @game_completed = @game.completed?
+
+        render :answer
       end
 
       def hint
         question = Question.find(params[:question_id])
         @hints = question.falses.shuffle[0..1]
+
+        render :hint
       end
 
       def update
         @game
+
+        render :update
       end
 
       def completed
         @success = @game.drupal_mark_completed!
       rescue
         error(E_INTERNAL, "Sorry, could not update Drupal at this time")
+
+        render :completed
       end
 
       private

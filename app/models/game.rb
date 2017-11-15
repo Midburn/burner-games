@@ -1,4 +1,4 @@
-class Game < ActiveRecord::Base
+class Game < ApplicationRecord
 
   include Tokenable
   tokenable_by 6
@@ -7,9 +7,9 @@ class Game < ActiveRecord::Base
   QUESTIONS_IN_CATEGORY = ENV["QUESTIONS_IN_CATEGORY"].present? ? ENV["QUESTIONS_IN_CATEGORY"].to_i : 6
 
   # Associations
-  has_and_belongs_to_many :questions, through: :games_questions
-  has_many :categories, through: :categories_game
   has_many :categories_game
+  has_many :categories, through: :categories_game
+  has_and_belongs_to_many :questions, through: :games_questions
 
   # Validations
   validates :user_id, presence: true # ever game must belong to a user

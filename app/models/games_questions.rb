@@ -1,4 +1,4 @@
-class GamesQuestions < ActiveRecord::Base
+class GamesQuestions < ApplicationRecord
   belongs_to :game
   belongs_to :question
 

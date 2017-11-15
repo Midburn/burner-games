@@ -1,4 +1,4 @@
-class Answer < ActiveRecord::Base
+class Answer < ApplicationRecord
 
   enum answer_type: { text: 0, image: 1, video: 2 }
 
