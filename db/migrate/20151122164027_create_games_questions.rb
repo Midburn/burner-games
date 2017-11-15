@@ -1,4 +1,4 @@
-class CreateGamesQuestions < ActiveRecord::Migration
+class CreateGamesQuestions < ActiveRecord::Migration[4.2]
   def change
     create_table :games_questions, id: false do |t|
       t.references :game, index: true
