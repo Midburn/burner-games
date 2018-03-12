@@ -1,228 +1,188 @@
-# API Examples
+## API REQUEST: /games/new - NEW GAME REQUEST
 
-## Models
+```
+curl -X POST https://production.953caigbma.eu-west-1.elasticbeanstalk.com/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
+```
 
-### Game API Model
+##### Request Params
+
+* `user_id` - the user's id from spark/drupal system. Once the game is over, the games server will perform a private API call to the user managemetn system to mark that the user pass the game.
+
+##### Response
+
 ```
 {
-  "token": "t0k3n",          # The game's unique identifier
-  "status": null,            # Status of the game: {started, ended, expired}
-  "user_id": 22,             # The Midburn profile user id
-  "completed": false,        # Boolean indicating if the game was completed
-  "questions_count": 0,      # Questions attached to this game
-  "questions": []            # Questions array, where each object in the array is the question model
-}
-```
-
-### Question API Model
-```
-{
-  "id": 38,                                       # The id of the question
-  "body": "מישהו ממש מעצבן אותך במידברן, אתה:",   # Question's body. For question_type: 'text'
-                                                      questions, this will include the text of the question.
-                                                      For other types, body is a url for the source
-                                                      The be included while presenting the question.
-  "question_type": "text",                        # 3 question types: {"text", "image", "video"}
-  "level": "easy",                                # Question's level: {"easy", "very_hard"}
-  "category_id": 3,                               # Category id of the question, out of 11 categories.
-                                                      See app/model/category.rb for full list
-  "answers": []                                   # Possible answers for the question
-}
-```
-
-### Answer API Model
-```
-{                                                                 
-  "id": 149,                    # The id of the answer
-  "answer_type": "text",        # 3 answer types: {"text", "image", "video"}
-  "body": "דוקר אותו עם נוצה"    # Answer body. Similar to question's body.
-}
-```
-
-## Burner Games API example
-
-### 1. Start a new game
-```bash
-curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```json
-{
+  "token": "91OC6E",
   "status": null,
-  "token": "N3JU7i",
-  "user_id": 22,
+  "user_id": 888,
   "answered_correctly": 0,
-  "questions_count": 0,
+  "questions_count": 25,
+  "completed": false,
   "categories": [
     {
-      "name": "communal_effort",
-      "corrects": 0
-    },
-    {
-      "name": "gifting",
-      "corrects": 0
-    },
-    {
-      "name": "immediacy",
-      "corrects": 0
-    },
-    {
-      "name": "radical_self_reliance",
-      "corrects": 0
-    },
-    {
-      "name": "radical_self_expression",
-      "corrects": 0
-    }
-  ]
-}
-```
-
-###### Notice that the game's token is `N3JU7i`, we will need it for all of our future requests
-
-### 2. Get List of Questions
-```bash
-curl -X GET http://localhost:3000/api/v1/games/N3JU7i/questions --header "Content-Type:application/json"
-```
-
-##### Response:
-```json
-{
-  "questions": []
-}
-```
-
-###### Notice: previous versions of the API returned the game model, but that was removed.
-
-### 3. Add Question To Game: "N3JU7i" with category 'communal_effort' (which is part of this game!)
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/new_question -d '{"category":"communal_effort"}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```json
-{
-  "id": 2,
-  "body": "אתה מגיע למידברן ופוגש בחד-קרן צבעוני ביותר שמסביר לך על עקרונות העיר, מחלק לך מפה ותוכניה ומכריח אותך להתפלש בחול בצורת מלאך. הוא כמובן שייך למחלקת _________",
-  "question_type": "text",
-  "level": "easy",
-  "category": {
-    "id": 7,
-    "name": "communal_effort"
-  },
-  "answers": [
-    {
-      "id": 5,
-      "answer_type": "text",
-      "body": "דייט"
-    },
-    {
-      "id": 6,
-      "answer_type": "text",
-      "body": "IT"
-    },
-    {
-      "id": 7,
-      "answer_type": "text",
-      "body": "מפ\"צ"
-    },
-    {
-      "id": 8,
-      "answer_type": "text",
-      "body": "גריטרז"
-    }
-  ]
-}
-```
-
-### 3.1. Add Question To Game: "N3JU7i" with the wrong category.
-
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/new_question -d '{"category":"inclusion"}' --header "Content-Type:application/json"
-```
-
-```json
-{
-  "status": "error",
-  "message": "this category is not part of this game"
-}
-```
-
-> The following categories exists:
-> "other", "inclusion", "gifting", "decommodification", "radical_self_reliance", "radical_self_expression", "communal_effort", "civic_responsibility", "leaving_no_trace", "participation", "immediacy". For more, see Category model file.
-
-### 4. Listing the Game's questions
-```bash
-curl -X GET http://localhost:3000/api/v1/games/N3JU7i/questions --header "Content-Type:application/json"
-```
-
-##### Response:
-
-```bash
-{
-  "questions": [
-    {
-      "id": 2,
-      "body": "אתה מגיע למידברן ופוגש בחד-קרן צבעוני ביותר שמסביר לך על עקרונות העיר, מחלק לך מפה ותוכניה ומכריח אותך להתפלש בחול בצורת מלאך. הוא כמובן שייך למחלקת _________",
-      "question_type": "text",
-      "level": "easy",
-      "category": null,
-      "answers": [
+      "category_id": 5,
+      "name": "safe_zone",
+      "corrects": 0,
+      "category_completed": false,
+      "questions": [
         {
-          "id": 5,
-          "answer_type": "text",
-          "body": "דייט"
+          "id": 24,
+          "body": "הגיפטינג שלך הוא מיכל ריסוס של מים קרים כדי לרענן עוברים ושבים. מסיבת צהריים לוהטת, מישהו יושב בצד ולא לגמרי בעניין המסיבה. מה תעשי?",
+          "question_type": "text",
+          "level": "easy",
+          "category": {
+            "id": 5,
+            "name": "safe_zone"
+          },
+          "answers": [
+            {
+              "id": 96,
+              "answer_type": "text",
+              "body": "אשאל אותו אם מתאים לו שפריץ ואם כן, מרססת אותו בחדווה וברגישות"
+            },
+            {
+              "id": 93,
+              "answer_type": "text",
+              "body": "אשפריץ על חברים שלי שרוקדים קרוב ואדאג שיירטב גם, בלי כוונה"
+            },
+            {
+              "id": 94,
+              "answer_type": "text",
+              "body": "אשאל אותו אם בא לו להרטב ואם הוא אומר כן, אפילו מהוסס, מרוקנת עליו מיכל"
+            },
+            {
+              "id": 95,
+              "answer_type": "text",
+              "body": "ארסס את האוויר בסביבתו ואתיישב לידו במהירות כדי שנרטב ביחד"
+            }
+          ]
         },
-        {
-          "id": 6,
-          "answer_type": "text",
-          "body": "IT"
-        },
-        {
-          "id": 7,
-          "answer_type": "text",
-          "body": "מפ\"צ"
-        },
-        {
-          "id": 8,
-          "answer_type": "text",
-          "body": "גריטרז"
-        }
+
+        // ... MORE QUESTIONS ...
+
       ]
-    }
+    },
+    {
+      "category_id": 4,
+      "name": "leave_no_trace",
+      "corrects": 0,
+      "category_completed": false,
+      "questions": [
+        {
+          "id": 3,
+          "body": "אני מת להשתין. מת! מה עושים? ",
+          "question_type": "text",
+          "level": "easy",
+          "category": {
+            "id": 4,
+            "name": "leave_no_trace"
+          },
+          "answers": [
+            {
+              "id": 12,
+              "answer_type": "text",
+              "body": "הולכים לשירותים כימיים שמידברן מספקים"
+            },
+            {
+              "id": 10,
+              "answer_type": "text",
+              "body": "לך לבריכת האידוי של השכן, איש לא ישים לב"
+            },
+            {
+              "id": 9,
+              "answer_type": "text",
+              "body": "תשתין בכל מקום, זה מדבר"
+            },
+            {
+              "id": 11,
+              "answer_type": "text",
+              "body": "רק בחניון מותר"
+            }
+          ]
+        },
+
+
+        // ... MORE QUESTIONS ...
+
+      ]
+    },
+
+
+    // ... MORE CATEGORIES + THEIR QUESTIONS ...
+
+
   ]
 }
 ```
 
-### 5. Submitting a WRONG Answer For a Question
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "2", "answer_ids":["5"]}' --header "Content-Type:application/json"
+##### Response Params
+
+* `token` - is a 6 characters unique id of a game (for example: `91OC6E`)
+* `status` - deprecated. In the pass we thought a user will be able to continue an old game, but we decided it no longer relevant.
+* `user_id` - the playing user's id.
+* `answered_correctly` - the amount of questions the user answered correctly.
+* `questions_count` - amount of questions in the game.
+* `completed` - is the game completed or no
+* `categories` - the categories (defaults to 5) and their questions in the game.
+
+## API REQUEST: /games/:token/answer - ANSWERING A QUESTION INCORRECTLY
+
+```
+curl 'http://production.953caigbma.eu-west-1.elasticbeanstalk.com/api/v1/games/91OC6E/answer' --header 'Content-Type: application/json' -d '{"question_id":"22","answer_ids":["86"]}'
 ```
 
-##### Response:
-```json
+##### Request Params
+
+* `question_id` - the id of the question.
+* `answer_ids` - an array of correct answers ids.
+
+> Notes:
+> Game token: Please notice that the game's token is on the url, user can not answer a question that do not belong to the game.
+> Answer ids must belong to the question.
+
+##### Response
+
+```
 {
   "response": false,
   "category_completed": false,
   "game_completed": false,
   "correct_answers": [
     {
-      "id": 8,
+      "id": 88,
       "answer_type": "text",
-      "body": "גריטרז"
+      "body": "אגש ואשאל אם היא מודעת למה שקורה, אם כן - אניח להם, ואם איני בטוח, אגייס עזרה "
     }
   ]
 }
 ```
 
-### 6. Submitting a CORRECT Answer For a Question
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "2", "answer_ids":["8"]}' --header "Content-Type:application/json"
+##### Response Params
+
+* `response` - Did the user answer the question correctly or incorrectly.
+* `category_completed` - Did the user answered enough question in the category to move forward to the next category
+* `game_completed` - Did the user completed the game or there are more questions to be answer.
+* `correct_answers` - an array of the correct answers of the question.
+
+
+## API REQUEST: /games/:token/answer - ANSWERING A QUESTION CORRECTLY 
+
+```
+curl 'http://production.953caigbma.eu-west-1.elasticbeanstalk.com/api/v1/games/91OC6E/answer' --header 'Content-Type: application/json' -d '{"question_id":"22","answer_ids":["88"]}'
 ```
 
-##### Response:
-```json
+##### Request Params
+
+* `question_id` - the id of the question.
+* `answer_ids` - an array of correct answers ids.
+
+> Notes:
+> Game token: Please notice that the game's token is on the url, user can not answer a question that do not belong to the game.
+> Answer ids must belong to the question.
+
+##### Response
+
+```
 {
   "response": true,
   "category_completed": false,
@@ -230,52 +190,11 @@ curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id"
 }
 ```
 
-### 7. Submitting a HINT request For a Question
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/hint -d '{"question_id": "8"}' --header "Content-Type:application/json"
-```
+##### Response Params
 
-##### Response:
-```json
-{
-  "hints": [
-    {
-      "id": 32,
-      "answer_type": "text",
-      "body": "קורא את כל המסמך (בואנה, זה ממש מעניין כל המידברן הזה)"
-    },
-    {
-      "id": 29,
-      "answer_type": "text",
-      "body": "יאללה, יאללה, אני גבר גבר, לוקח המון בירה (כי זו מסיבה) ויוצא"
-    }
-  ]
-}
-```
+* `response` - Did the user answer the question correctly or incorrectly.
+* `category_completed` - Did the user answered enough question in the category to move forward to the next category
+* `game_completed` - Did the user completed the game or there are more questions to be answer.
 
-### 8. Answering a question correctly & user finished category
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "8", "answer_ids":["32"]}' --header "Content-Type:application/json"
-```
 
-```json
-{
-  "response": true,
-  "category_completed": true,
-  "game_completed": false
-}
-```
-
-### 8. Answering a question correctly & user finish **ALL** categories 
-```bash
-curl -X POST http://localhost:3000/api/v1/games/N3JU7i/answer -d '{"question_id": "8", "answer_ids":["32"]}' --header "Content-Type:application/json"
-```
-
-```json
-{
-  "response": true,
-  "category_completed": true,
-  "game_completed": true
-}
-```
-
+## GOOD LUCK
