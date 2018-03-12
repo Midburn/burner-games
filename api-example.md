@@ -1,247 +1,200 @@
-# API Examples
+## API REQUEST: /games/new - NEW GAME REQUEST
 
-## Models
+```
+curl -X POST https://production.953caigbma.eu-west-1.elasticbeanstalk.com/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
+```
 
-### Game API Model
+##### Request Params
+
+* `user_id` - the user's id from spark/drupal system. Once the game is over, the games server will perform a private API call to the user managemetn system to mark that the user pass the game.
+
+##### Response
+
 ```
 {
-  "token": "t0k3n",          # The game's unique identifier
-  "status": null,            # Status of the game: {started, ended, expired}
-  "user_id": 22,             # The Midburn profile user id
-  "answered_correctly": 0,   # Questions that were answered correctly during this game
-  "questions_count": 0,      # Questions attached to this game
-  "questions": []            # Questions array, where each object in the array is the question model
-}
-```
-
-### Question API Model
-```
-{
-  "id": 38,                                       # The id of the question
-  "body": "מישהו ממש מעצבן אותך במידברן, אתה:",   # Question's body. For question_type: 'text'
-                                                      questions, this will include the text of the question.
-                                                      For other types, body is a url for the source
-                                                      The be included while presenting the question.
-  "question_type": "text",                        # 3 question types: {"text", "image", "video"}
-  "level": "easy",                                # Question's level: {"easy", "very_hard"}
-  "category": null,                               # Category of the question, out of 11 categories.
-                                                      See app/model/question.rb for full list
-  "answers": []                                   # Possible answers for the question
-}
-```
-
-### Answer API Model
-```
-{                                                                 
-  "id": 149,                    # The id of the answer
-  "answer_type": "text",        # 3 answer types: {"text", "image", "video"}
-  "body": "דוקר אותו עם נוצה"    # Answer body. Similar to question's body.
-}
-```
-
-## Burner Games API example
-
-### 1. Start a new game
-```bash
-curl -X POST http://localhost:3000/api/v1/games/new -d '{"user_id": 22}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
-{
+  "token": "91OC6E",
   "status": null,
-  "token": "HZei7c",
-  "user_id": 22,
+  "user_id": 888,
   "answered_correctly": 0,
-  "questions_count": 0
+  "questions_count": 25,
+  "completed": false,
+  "categories": [
+    {
+      "category_id": 5,
+      "name": "safe_zone",
+      "corrects": 0,
+      "category_completed": false,
+      "questions": [
+        {
+          "id": 24,
+          "body": "הגיפטינג שלך הוא מיכל ריסוס של מים קרים כדי לרענן עוברים ושבים. מסיבת צהריים לוהטת, מישהו יושב בצד ולא לגמרי בעניין המסיבה. מה תעשי?",
+          "question_type": "text",
+          "level": "easy",
+          "category": {
+            "id": 5,
+            "name": "safe_zone"
+          },
+          "answers": [
+            {
+              "id": 96,
+              "answer_type": "text",
+              "body": "אשאל אותו אם מתאים לו שפריץ ואם כן, מרססת אותו בחדווה וברגישות"
+            },
+            {
+              "id": 93,
+              "answer_type": "text",
+              "body": "אשפריץ על חברים שלי שרוקדים קרוב ואדאג שיירטב גם, בלי כוונה"
+            },
+            {
+              "id": 94,
+              "answer_type": "text",
+              "body": "אשאל אותו אם בא לו להרטב ואם הוא אומר כן, אפילו מהוסס, מרוקנת עליו מיכל"
+            },
+            {
+              "id": 95,
+              "answer_type": "text",
+              "body": "ארסס את האוויר בסביבתו ואתיישב לידו במהירות כדי שנרטב ביחד"
+            }
+          ]
+        },
+
+        // ... MORE QUESTIONS ...
+
+      ]
+    },
+    {
+      "category_id": 4,
+      "name": "leave_no_trace",
+      "corrects": 0,
+      "category_completed": false,
+      "questions": [
+        {
+          "id": 3,
+          "body": "אני מת להשתין. מת! מה עושים? ",
+          "question_type": "text",
+          "level": "easy",
+          "category": {
+            "id": 4,
+            "name": "leave_no_trace"
+          },
+          "answers": [
+            {
+              "id": 12,
+              "answer_type": "text",
+              "body": "הולכים לשירותים כימיים שמידברן מספקים"
+            },
+            {
+              "id": 10,
+              "answer_type": "text",
+              "body": "לך לבריכת האידוי של השכן, איש לא ישים לב"
+            },
+            {
+              "id": 9,
+              "answer_type": "text",
+              "body": "תשתין בכל מקום, זה מדבר"
+            },
+            {
+              "id": 11,
+              "answer_type": "text",
+              "body": "רק בחניון מותר"
+            }
+          ]
+        },
+
+
+        // ... MORE QUESTIONS ...
+
+      ]
+    },
+
+
+    // ... MORE CATEGORIES + THEIR QUESTIONS ...
+
+
+  ]
 }
 ```
 
-###### Notice that the game's token is `HZei7c`, we will need it for all of our future requests
+##### Response Params
 
-### 2. Get List of Questions
-```bash
-curl -X GET http://localhost:3000/api/v1/games/HZei7c/questions -d '{}' --header "Content-Type:application/json"
+* `token` - is a 6 characters unique id of a game (for example: `91OC6E`)
+* `status` - deprecated. In the pass we thought a user will be able to continue an old game, but we decided it no longer relevant.
+* `user_id` - the playing user's id.
+* `answered_correctly` - the amount of questions the user answered correctly.
+* `questions_count` - amount of questions in the game.
+* `completed` - is the game completed or no
+* `categories` - the categories (defaults to 5) and their questions in the game.
+
+## API REQUEST: /games/:token/answer - ANSWERING A QUESTION INCORRECTLY
+
+```
+curl 'http://production.953caigbma.eu-west-1.elasticbeanstalk.com/api/v1/games/91OC6E/answer' --header 'Content-Type: application/json' -d '{"question_id":"22","answer_ids":["86"]}'
 ```
 
-##### Response:
-```bash
+##### Request Params
+
+* `question_id` - the id of the question.
+* `answer_ids` - an array of correct answers ids.
+
+> Notes:
+> Game token: Please notice that the game's token is on the url, user can not answer a question that do not belong to the game.
+> Answer ids must belong to the question.
+
+##### Response
+
+```
 {
-  "game": {
-    "token": "HZei7c",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 0,
-    "questions": []
-  }
-}
-```
-
-###### Notice game questions list is empty.
-
-### 3. Add Question To Game: "HZei7c"
-```bash
-curl -X POST http://localhost:3000/api/v1/games/HZei7c/new_question -d '{}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
-{
-  "id": 38,
-  "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
-  "question_type": "text",
-  "level": "easy",
-  "category": null,
-  "answers": [
+  "response": false,
+  "category_completed": false,
+  "game_completed": false,
+  "correct_answers": [
     {
-      "id": 149,
+      "id": 88,
       "answer_type": "text",
-      "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
-    },
-    {
-      "id": 150,
-      "answer_type": "text",
-      "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
-    },
-    {
-      "id": 151,
-      "answer_type": "text",
-      "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
-    },
-    {
-      "id": 152,
-      "answer_type": "text",
-      "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
+      "body": "אגש ואשאל אם היא מודעת למה שקורה, אם כן - אניח להם, ואם איני בטוח, אגייס עזרה "
     }
   ]
 }
 ```
 
-###### The question model is been sent back on the `new_question` api request.
+##### Response Params
 
-### 4. Listing the Game's questions
-```bash
-curl -X GET http://localhost:3000/api/v1/games/HZei7c/questions -d '{}' --header "Content-Type:application/json"
+* `response` - Did the user answer the question correctly or incorrectly.
+* `category_completed` - Did the user answered enough question in the category to move forward to the next category
+* `game_completed` - Did the user completed the game or there are more questions to be answer.
+* `correct_answers` - an array of the correct answers of the question.
+
+
+## API REQUEST: /games/:token/answer - ANSWERING A QUESTION CORRECTLY 
+
+```
+curl 'http://production.953caigbma.eu-west-1.elasticbeanstalk.com/api/v1/games/91OC6E/answer' --header 'Content-Type: application/json' -d '{"question_id":"22","answer_ids":["88"]}'
 ```
 
-##### Response:
+##### Request Params
 
-```bash
+* `question_id` - the id of the question.
+* `answer_ids` - an array of correct answers ids.
+
+> Notes:
+> Game token: Please notice that the game's token is on the url, user can not answer a question that do not belong to the game.
+> Answer ids must belong to the question.
+
+##### Response
+
+```
 {
-  "game": {
-    "token": "HZei7c",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 1,
-    "questions": [
-      {
-        "id": 38,
-        "body": "מישהו ממש מעצבן אותי במידברן, אתה:",
-        "question_type": "text",
-        "level": "easy",
-        "category": null,
-        "answers": [
-          {
-            "id": 149,
-            "answer_type": "text",
-            "body": "דוקר אותו (עם נוצה), נראה לו שהוא יעקוף אותי בתור לקרח?!"
-          },
-          {
-            "id": 150,
-            "answer_type": "text",
-            "body": "מזמין עליו משטרה, נראה לו שהוא יסתכל עליי ככה?!"
-          },
-          {
-            "id": 151,
-            "answer_type": "text",
-            "body": "מתחיל לקלל, יורק, אוסף סביבי כל מיני אנשים שיעצרו אותי, למה אני אכנס בו!"
-          },
-          {
-            "id": 152,
-            "answer_type": "text",
-            "body": "נרגע. סופר על 10. חושב אם זה חלק מההבעה עצמית הרדיקלית שלו. אם הוא חורג, מוצא נווד חביב שיעזור לגשר."
-          }
-        ]
-      }
-    ]
-  }
+  "response": true,
+  "category_completed": false,
+  "game_completed": false
 }
 ```
 
-### 5. Submitting a WRONG Answer For a Question
-```bash
-curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["151"]}' --header "Content-Type:application/json"
-```
+##### Response Params
 
-##### Response:
-```bash
-{
-  "response": "wrong",
-  "game": {
-    "token": "HZei7c",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 1
-  }
-}
-```
+* `response` - Did the user answer the question correctly or incorrectly.
+* `category_completed` - Did the user answered enough question in the category to move forward to the next category
+* `game_completed` - Did the user completed the game or there are more questions to be answer.
 
-### 6. Submitting a WRONG Multiple Choice Answer
-```bash
-curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["151,152"]}' --header "Content-Type:application/json"
-```
 
-##### Response:
-```bash
-{
-  "response": "wrong",
-  "game": {
-    "token": "HZei7c",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 0,
-    "questions_count": 1
-  }
-}
-```
-
-### 7. Submitting a CORRECT Answer For a Question
-```bash
-curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["152"]}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
-{
-  "response": "correct",
-  "game": {
-    "token": "HZei7c",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 1,
-    "questions_count": 1
-  }
-}
-```
-
-### 8. Submitting a CORRECT Multiple Choice Answer
-```bash
-curl -X POST http://localhost:3000/api/v1/games/HZei7c/answer -d '{"question_id": "38", "answer_ids":["152,153"]}' --header "Content-Type:application/json"
-```
-
-##### Response:
-```bash
-{
-  "response": "correct",
-  "game": {
-    "token": "HZei7c",
-    "status": null,
-    "user_id": 22,
-    "answered_correctly": 1,
-    "questions_count": 1
-  }
-}
-```
+## GOOD LUCK
